@@ -24,6 +24,10 @@
 		return view ('index/index');
 	});
 
+    Route::get ('/list' , function () {
+        return view ('index/list');
+    });
+
 	Auth::routes ();
 
 	Route::get ('/home' , 'HomeController@index')->name ('home');

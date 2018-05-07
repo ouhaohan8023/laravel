@@ -23,9 +23,13 @@ Vue.component('headbar', require('./components/Header.vue'));
 Vue.component('side', require('./components/Side.vue'));
 Vue.component('breadcrumb', require('./components/Breadcrumb.vue'));
 Vue.component('novel', require('./components/Novel.vue'));
+Vue.component('novellist', require('./components/NovelList.vue'));
 
 
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data:{
+        message:'sdfs',
+    }
 });
