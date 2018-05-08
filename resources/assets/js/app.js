@@ -10,14 +10,16 @@ require('./bootstrap');
 window.Vue = require('vue');
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-
+import VueRouter from 'vue-router';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 Vue.use(ElementUI);
-//Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.use(VueRouter);
+
+Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('hello', require('./components/Hello.vue'));
 Vue.component('headbar', require('./components/Header.vue'));
 Vue.component('side', require('./components/Side.vue'));
@@ -25,10 +27,14 @@ Vue.component('breadcrumb', require('./components/Breadcrumb.vue'));
 Vue.component('novel', require('./components/Novel.vue'));
 Vue.component('novellist', require('./components/NovelList.vue'));
 
-
+import routes from './routes'
+const router = new VueRouter({
+    routes
+})
 
 const app = new Vue({
     el: '#app',
+    router,
     data:{
         message:'sdfs',
     }

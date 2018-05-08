@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <section>
-      <el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
+      <!--<el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>-->
       <div v-for="o in 4" :key="o" class="text item">
         <a @click="dialogVisible = true" class="a-box-card">
-          <el-card class="box-card" shadow="hover">
+          <el-card class="box-card" shadow="always">
             <div slot="header" class="clearfix">
               <span>{{title}}</span>
               <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
@@ -29,7 +29,7 @@
   </div>
 </template>
 <style>
-  .text item{
+  .item{
     margin-bottom: 15px;
   }
 </style>

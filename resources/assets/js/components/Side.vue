@@ -17,8 +17,8 @@
                         </template>
                         <el-menu-item-group>
                             <template slot="title">分组一</template>
-                            <el-menu-item index="1-1">选项1</el-menu-item>
-                            <el-menu-item index="1-2">选项2</el-menu-item>
+                            <router-link to="/novel"><el-menu-item index="1-1">选项一</el-menu-item></router-link>
+                            <router-link to="/"><el-menu-item index="1-2">选项二</el-menu-item></router-link>
                         </el-menu-item-group>
                         <el-menu-item-group title="分组2">
                             <el-menu-item index="1-3">选项3</el-menu-item>
@@ -51,6 +51,11 @@
     .el-submenu .el-menu-item{
         min-width:0
     }
+    a {
+        text-decoration: none;
+        color: rgb(255, 255, 255);
+    }
+
 </style>
 <script>
     export default {
