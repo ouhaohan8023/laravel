@@ -20,6 +20,10 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "element-ui": "^2.3.7"
+        "ajv": "^6.4.0",
+        "element-ui": "^2.3.7",
+        "npm": "^6.0.0",
+        "vue-resource": "^1.5.0",
+        "vue-router": "^3.0.1"
     }
 }

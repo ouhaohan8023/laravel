@@ -23,6 +23,25 @@
 		.el-aside{
 			margin-top: 20px;
 		}
+		/*.component-fade-enter-active, .component-fade-leave-active {*/
+			/*transition: opacity .3s ease;*/
+		/*}*/
+		/*.component-fade-enter, .component-fade-leave-to*/
+			/*!* .component-fade-leave-active for below version 2.1.8 *! {*/
+			/*transform: translateX(10px);*/
+			/*opacity: 0;*/
+		/*}*/
+		.component-fade-enter-active {
+			transition: all .3s ease;
+		}
+		.component-fade-leave-active {
+			transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+		}
+		.component-fade-enter, .slide-fade-leave-to
+			/* .slide-fade-leave-active for below version 2.1.8 */ {
+			transform: translateX(10px);
+			opacity: 0;
+		}
 	</style>
 </head>
 <body>
@@ -38,9 +57,11 @@
 					<side></side>
 				</el-aside>
 				<el-main>
-					<breadcrumb></breadcrumb>
-					<novel></novel>
-
+					{{--<breadcrumb></breadcrumb>--}}
+					{{--<novel></novel>--}}
+					<transition name="component-fade" mode="out-in">
+					<router-view></router-view>
+					</transition>
 				</el-main>
 			</el-container>
 		</el-container>

@@ -11,6 +11,7 @@ window.Vue = require('vue');
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -18,6 +19,7 @@ import VueRouter from 'vue-router';
  */
 Vue.use(ElementUI);
 Vue.use(VueRouter);
+Vue.use(VueResource);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('hello', require('./components/Hello.vue'));
@@ -26,7 +28,6 @@ Vue.component('side', require('./components/Side.vue'));
 Vue.component('breadcrumb', require('./components/Breadcrumb.vue'));
 Vue.component('novel', require('./components/Novel.vue'));
 Vue.component('novellist', require('./components/NovelList.vue'));
-
 import routes from './routes'
 const router = new VueRouter({
     routes

@@ -28,6 +28,8 @@
         return view ('index/list');
     });
 
+    Route::get ('/novel_detail' , 'NovelController@detail');
+
 	Auth::routes ();
 
 	Route::get ('/home' , 'HomeController@index')->name ('home');
