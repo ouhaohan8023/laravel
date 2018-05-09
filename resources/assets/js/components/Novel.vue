@@ -1,11 +1,12 @@
 <template>
 	<!--<transition name="bounce" mode="out-in">-->
-	<div class="container">
+	<div id="tags" class="container">
 		<section v-loading="loading">
 			<h2>主标题</h2>
 			<h1>副标题</h1>
+			<tag-el></tag-el>
 			<div class="content">
-				<h4>内容</h4>
+				<h4 v-html="contents"></h4>
 			</div>
 		</section>
 	</div>
@@ -34,12 +35,49 @@
 			transform: scale(1);
 		}
 	}
+
+	.time {
+		font-size: 13px;
+		color: #999;
+	}
+
+	.bottom {
+		margin-top: 13px;
+		line-height: 12px;
+	}
+
+	.button {
+		padding: 0;
+		float: right;
+	}
+
+	.image {
+		width: 100%;
+		display: block;
+	}
+
+	.clearfix:before,
+	.clearfix:after {
+		display: table;
+		content: "";
+	}
+
+	.clearfix:after {
+		clear: both
+	}
 </style>
 <script>
+		//局部注册
+    import tag from './Tag.vue';
     export default {
+        components: {
+            'tag-el':tag
+        },
         data () {
             return {
-                loading: true
+                loading: true,
+								contents: '载入中ing',
+                currentDate: new Date()
 						}
 				},
         mounted(){
@@ -48,6 +86,19 @@
                 return response.text()
             }).then((result) => {
                 this.loading = false;
+                this.contents = "<el-row>\n" +
+                    "  <el-col :span=\"8\" v-for=\"(o, index) in 2\" :key=\"o\" :offset=\"index > 0 ? 2 : 0\">\n" +
+                    "    <el-card :body-style=\"{ padding: '0px' }\">\n" +
+                    "      <img src=\"http://img06.tooopen.com/images/20160921/tooopen_sy_179583447187.jpg\" class=\"image\">\n" +
+                    "      <div style=\"padding: 14px;\">\n" +
+                    "        <span>好吃的汉堡</span>\n" +
+                    "        <div class=\"bottom clearfix\">\n" +
+                    "          <time class=\"time\">"+this.currentDate+"</time>\n" +
+                    "        </div>\n" +
+                    "      </div>\n" +
+                    "    </el-card>\n" +
+                    "  </el-col>\n" +
+                    "</el-row>\n";
                 console.log('返回数据结果：', result)
         });
         }
