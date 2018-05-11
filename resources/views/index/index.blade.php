@@ -67,5 +67,11 @@
 		</el-container>
 	</main>
 </div>
+<script>
+    var userName = 6669;
+    {{--var logOutUrl = '{{ route('logout') }}'--}}
+    var logOutUrl = 'http://google.com'
+
+</script>
 </body>
 </html>

@@ -28,6 +28,7 @@ Vue.component('side', require('./components/Side.vue'));
 Vue.component('breadcrumb', require('./components/Breadcrumb.vue'));
 Vue.component('novel', require('./components/Novel.vue'));
 Vue.component('novellist', require('./components/NovelList.vue'));
+
 import routes from './routes'
 const router = new VueRouter({
     routes
