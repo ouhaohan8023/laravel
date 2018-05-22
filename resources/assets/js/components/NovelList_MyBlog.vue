@@ -48,7 +48,8 @@
             }
         },
         mounted(){
-          Vue.resource('/novel_list').get().then((response) => {
+//          console.log(userId);
+          Vue.resource('/novel_list_own').get().then((response) => {
   //							console.log(response)
             return response.data
           }).then((result) => {

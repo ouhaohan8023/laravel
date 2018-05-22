@@ -23,14 +23,6 @@
 		.el-aside{
 			margin-top: 20px;
 		}
-		/*.component-fade-enter-active, .component-fade-leave-active {*/
-			/*transition: opacity .3s ease;*/
-		/*}*/
-		/*.component-fade-enter, .component-fade-leave-to*/
-			/*!* .component-fade-leave-active for below version 2.1.8 *! {*/
-			/*transform: translateX(10px);*/
-			/*opacity: 0;*/
-		/*}*/
 		.component-fade-enter-active {
 			transition: all .3s ease;
 		}
@@ -42,6 +34,21 @@
 			transform: translateX(10px);
 			opacity: 0;
 		}
+		body{
+			background-color: #efeeea;
+			margin-top:0;
+		}
+		.el-header{
+			position: fixed;
+			width: 100%;
+			z-index: 100;
+		}
+		.contents{
+			margin-top: 50px;
+		}
+		.el-row{
+			width: 100%;
+		}
 	</style>
 </head>
 <body>
@@ -52,25 +59,52 @@
 			<el-header>
 				<headbar></headbar>
 			</el-header>
-			<el-container>
-				<el-aside width="200px">
-					<side></side>
-				</el-aside>
-				<el-main>
-					{{--<breadcrumb></breadcrumb>--}}
-					{{--<novel></novel>--}}
-					<transition name="component-fade" mode="out-in">
-					<router-view></router-view>
-					</transition>
-				</el-main>
+			<el-container class="contents">
+				<el-row >
+					<el-col :span="4">
+						<el-aside width="">
+							<side></side>
+						</el-aside>
+					</el-col>
+					<el-col :span="20">
+						<el-main>
+							{{--<breadcrumb></breadcrumb>--}}
+							{{--<novel></novel>--}}
+							<transition name="component-fade" mode="out-in">
+								<router-view></router-view>
+							</transition>
+						</el-main>
+					</el-col>
+				</el-row>
 			</el-container>
 		</el-container>
+		<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+			@csrf
+		</form>
 	</main>
 </div>
 <script>
-    var userName = 6669;
-    {{--var logOutUrl = '{{ route('logout') }}'--}}
-    var logOutUrl = 'http://google.com'
+	var User = "{{ Auth::user() }}";
+	var Logo = "{{ config('app.name', 'Laravel') }}";
+	var isLogin = true;
+	@guest
+		var userName = "游客";
+	@else
+		isLogin = false;
+		userName = "{{ Auth::user()->name }}";
+	@endguest
+    var logOutUrl = '{{ route('logout') }}'
+	var RegisterUrl = '{{ route('register') }}'
+	var LoginUrl = '{{ route('login') }}'
+	var isCollapse = false;
+	var ShowTitle = false;
+//	console.log(document.body.clientWidth)
+	ScreenWidth = document.body.clientWidth;
+	if(ScreenWidth <= 764){
+		isCollapse = true;
+		ShowTitle = true;
+	}
+
 
 </script>
 </body>

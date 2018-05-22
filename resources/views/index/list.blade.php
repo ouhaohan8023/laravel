@@ -41,6 +41,7 @@
 					{{--<h1>Hello @{{message}} 888</h1>--}}
 					{{--<novellist></novellist>--}}
 					<router-view></router-view>
+
 				</el-main>
 			</el-container>
 		</el-container>

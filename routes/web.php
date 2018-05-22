@@ -20,16 +20,28 @@
 		return view ('vue');
 	});
 
-	Route::get ('/' , function () {
-		return view ('index/index');
-	});
+	Route::get ('/' , 'IndexController@index');
 
-    Route::get ('/list' , function () {
-        return view ('index/list');
-    });
+  Route::get ('/list' , function () {
+      return view ('index/list');
+  });
 
-    Route::get ('/novel_detail' , 'NovelController@detail');
+	Route::get ('/novel_list' , 'NovelController@index');
+	//个人中心
+	Route::get ('/novel_list_own' , 'NovelController@index_own');
+
+	Route::get ('/novel_detail' , 'NovelController@detail');
+
+	Route::get ('/novel_add_love' , 'NovelController@addLove');
 
 	Auth::routes ();
 
 	Route::get ('/home' , 'HomeController@index')->name ('home');
+	Route::get ('/admin' , 'HomeController@admin');
+	Route::get ('/writeNovel' , 'HomeController@writeNovel');
+	Route::get ('/listNovel' , 'HomeController@listNovel');
+	//markDown
+	Route::get ('/markDown' , 'HomeController@markDown');
+	Route::get ('/sysIndex' , 'SysController@index');
+
+

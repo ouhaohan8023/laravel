@@ -1,12 +1,25 @@
 <template>
 	<!--<transition name="bounce" mode="out-in">-->
 	<div id="tags" class="container">
-		<section v-loading="loading">
-			<h2>主标题</h2>
-			<h1>副标题</h1>
-			<tag-el></tag-el>
+		<section
+			v-loading="loading"
+			element-loading-background="#efeeea"
+		>
+			<h2>{{maintitle}}</h2>
+			<h1>{{subtitle}}</h1>
+			<el-row class="time_read">
+				<el-col :span="8">{{novelTime}}</el-col>
+				<el-col :span="6" :offset="10" class="read">作者:{{writer}}&nbsp;&nbsp;阅读量:{{read}}</el-col>
+				<el-col :span="8">{{changeTime}}</el-col>
+			</el-row>
+			<tag-el v-bind:tagsList="tagsList"></tag-el>
 			<div class="content">
 				<h4 v-html="contents"></h4>
+				<el-row class="reward">
+					<!--<el-tag type="danger">已有<b>{{read}}</b>人阅读</el-tag>-->
+					<el-button type="danger" round v-on:click="addLove" :disabled="love_btn">{{love_word}}</el-button>
+					<el-tag type="danger">已有<b>{{love}}</b>人点赞</el-tag>
+				</el-row>
 			</div>
 		</section>
 	</div>
@@ -65,6 +78,17 @@
 	.clearfix:after {
 		clear: both
 	}
+	.reward{
+		text-align: center;
+	}
+	.time_read{
+		font-size: 8px;
+		color: #89a071;
+		margin-bottom: 10px;
+	}
+	.read{
+		text-align: right;
+	}
 </style>
 <script>
 		//局部注册
@@ -75,32 +99,59 @@
         },
         data () {
             return {
-                loading: true,
-								contents: '载入中ing',
-                currentDate: new Date()
+							loading: true,
+							contents: '载入中ing',
+							currentDate: new Date(),
+							maintitle: '主标题',
+							subtitle: '',
+							tagsList: [],
+							love: 0,
+							read: 0,
+							current_nid: 0,
+							love_btn: false,
+							love_word: '点个赞吧！让我知道你来过',
+							novelTime: '',
+							changeTime: '',
+							writer: ''
 						}
 				},
         mounted(){
-            var id= this.$route.query.id
-            Vue.resource('/laravel/public/novel_detail?id='+id).get().then((response) => {
-                return response.text()
-            }).then((result) => {
-                this.loading = false;
-                this.contents = "<el-row>\n" +
-                    "  <el-col :span=\"8\" v-for=\"(o, index) in 2\" :key=\"o\" :offset=\"index > 0 ? 2 : 0\">\n" +
-                    "    <el-card :body-style=\"{ padding: '0px' }\">\n" +
-                    "      <img src=\"http://img06.tooopen.com/images/20160921/tooopen_sy_179583447187.jpg\" class=\"image\">\n" +
-                    "      <div style=\"padding: 14px;\">\n" +
-                    "        <span>好吃的汉堡</span>\n" +
-                    "        <div class=\"bottom clearfix\">\n" +
-                    "          <time class=\"time\">"+this.currentDate+"</time>\n" +
-                    "        </div>\n" +
-                    "      </div>\n" +
-                    "    </el-card>\n" +
-                    "  </el-col>\n" +
-                    "</el-row>\n";
-                console.log('返回数据结果：', result)
-        });
-        }
+					this.current_nid = this.$route.query.id;
+					Vue.resource('/novel_detail?id='+this.current_nid).get().then((response) => {
+					//							console.log(response)
+						return response.data
+					}).then((result) => {
+						console.log('名字:'+result.novel.name);
+					this.writer = result.novel.name;
+					this.loading = false;
+						this.maintitle = result.novel.n_mainname;
+						this.subtitle = result.novel.n_subtitle;
+						this.contents = "<div>"+result.novel.n_content+"</div>";
+						this.tagsList = this.tagsList.concat(result.tags);
+						this.love = result.novel.n_love;
+						this.read = result.novel.n_read;
+						this.novelTime = "创建于:"+result.novel.n_buildtime;
+						if(result.novel.n_buildtime != result.novel.n_changetime){
+							this.changeTime = "更新于:"+result.novel.n_changetime;
+						}
+						console.log('返回数据结果：', result)
+					});
+        },
+			methods: {
+				addLove: function (event) {
+//					console.log(this.current_nid);
+					this.love = this.love + 1;
+					Vue.resource('/novel_add_love?id='+this.current_nid).get().then((response)=>{
+//						console.log(response)
+						return response.data
+					}).then((result) => {
+						if(result == 1){
+							this.love_btn = true
+							this.love_word = '谢谢支持 ^_^ '
+						}
+				});
+				}
+			}
+
 		}
 </script>

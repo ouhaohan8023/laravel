@@ -8,15 +8,18 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b">
-            <el-menu-item index="1">OHHINK</el-menu-item>
-            <el-menu-item v-if="ok" index="2">注册</el-menu-item>
-            <el-menu-item v-if="ok" index="3">登陆</el-menu-item>
+            <el-menu-item index="1">{{logo}}</el-menu-item>
+            <el-menu-item class="SignIn" v-if="isLogin" index="2"><a :href="RegisterUrl">注册</a></el-menu-item>
+            <el-menu-item class="SignUp" v-if="isLogin" index="3"><a :href="LoginUrl">登陆</a></el-menu-item>
             <el-submenu
-                    index="2">
+              index="4"
+              v-if="!isLogin">
                 <template slot="title">{{userName}}</template>
-                <el-menu-item index="2-1">选项1</el-menu-item>
-                <el-menu-item index="2-2">选项2</el-menu-item>
-                <a :href="logOutUrl"><el-menu-item index="2-3" >退出</el-menu-item></a>
+                <a :href="myBlog"><el-menu-item index="4-1">个人中心</el-menu-item></a>
+                <el-menu-item index="4-2">选项2</el-menu-item>
+                <a :href="logOutUrl"
+                   onclick="event.preventDefault();
+                   document.getElementById('logout-form').submit();"><el-menu-item index="4-3" >退出</el-menu-item></a>
                 <!--<el-submenu index="2-4">-->
                     <!--<template slot="title">选项4</template>-->
                     <!--<el-menu-item index="2-4-1">选项1</el-menu-item>-->
@@ -36,23 +39,40 @@
     .el-menu--horizontal>.el-submenu{
         float: right;
     }
+    .el-menu--horizontal>.SignIn,.el-menu--horizontal>.SignUp{
+        float: right;
+    }
 </style>
 <script>
     console.log(logOutUrl);
     export default {
         data() {
             return {
+                logo: Logo,
                 activeIndex: '1',
                 activeIndex2: '1',
                 userName: userName,
                 logOutUrl: logOutUrl,
-                isLogin: false
+                isLogin: isLogin,
+                RegisterUrl: RegisterUrl,
+                LoginUrl: LoginUrl,
+                myBlog: '/admin'
             };
         },
         methods: {
             handleSelect(key, keyPath) {
-                console.log(key, keyPath);
-            }
+//                console.log(key);
+                if(key == 3){
+                    window.location.href=LoginUrl;
+                }
+                if(key == 2){
+                    window.location.href=RegisterUrl;
+                }
+                if(key == 1){
+                    window.location.href='/';
+                }
+//                console.log(key, keyPath);
+            },
         }
     }
 </script>

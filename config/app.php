@@ -160,6 +160,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * MarkDown 文本编辑器
+         */
+        Chenhua\MarkdownEditor\MarkdownEditorServiceProvider::class,
     ],
 
     /*
@@ -209,6 +213,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /*
+         * MarkDown 编辑器
+         */
+      'MarkdownEditor' => Chenhua\MarkdownEditor\Facades\MarkdownEditor::class,
     ],
 
 ];
