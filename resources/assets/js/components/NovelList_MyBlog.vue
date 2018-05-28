@@ -1,18 +1,23 @@
+<!--我的文章列表，展示当前用户的文章-->
 <template>
   <!--<transition name="slide-fade" mode="out-in">-->
   <div class="NovelList">
     <section>
-      <!--<el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>-->
       <div v-for="o in list" :key="o.n_id" class="text item">
-        <a @click="ToNovel(o.n_id)" class="a-box-card">
-          <el-card class="box-card" shadow="always">
+          <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">
-              <span>{{o.n_mainname}}</span>
-              <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+              <a @click="ToNovel(o.n_id)" class="a-box-card">
+              <span><svg-icon :id="o.ic_icon"></svg-icon>{{o.n_mainname}}</span>
+              </a>
+              <el-button style="float: right; padding: 3px 0" type="text">
+                <i class="el-icon-edit" @click="Edit(o.n_id)"></i>
+                <i class="el-icon-share"></i>
+                <i class="el-icon-delete"></i></el-button>
             </div>
+            <a @click="ToNovel(o.n_id)" class="a-box-card">
             {{o.n_overview}}
+            </a>
           </el-card>
-        </a>
       </div>
     </section>
   </div>
@@ -36,6 +41,15 @@
     transform: translateX(10px);
     opacity: 0;
   }
+  .svgicon {
+    width: 30px;height: 30px;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+  a{
+    color: inherit;;
+  }
 </style>
 <script>
     export default {
@@ -44,7 +58,7 @@
               list: [],
               title: '父组件向子组件传递数据',
               content: '在 Vue 中，可以使用 props 向子组件传递数据。',
-              dialogVisible: false
+              dialogVisible: false,
             }
         },
         mounted(){
@@ -67,6 +81,9 @@
                 // 命名的路由
                 this.$router.push('/novel?id='+data)
             },
+            Edit(data){
+              this.$router.push('markDownEdit?id='+data);
+            }
         }
 
 

@@ -1,3 +1,4 @@
+<!--首页左边栏，菜单-->
 <template>
     <div class="container">
         <el-row class="tac">
@@ -19,7 +20,9 @@
                         </template>
                         <el-menu-item-group>
                             <template slot="title" v-if="ShowTitle">程序相关</template>
-                            <router-link to="/"><el-menu-item index="1-1">PHP</el-menu-item></router-link>
+                            <!--<router-link to="/"><el-menu-item index="1-1">PHP</el-menu-item></router-link>-->
+                            <a @click="ToList(2)"><el-menu-item index="1-1">PHP</el-menu-item></a>
+
                             <!--<router-link to="/"><el-menu-item index="1-2">选项二</el-menu-item></router-link>-->
                         </el-menu-item-group>
                         <!--<el-menu-item-group title="分组2">-->
@@ -37,7 +40,9 @@
                         </template>
                         <el-menu-item-group>
                             <template slot="title" v-if="ShowTitle">浮生杂谈</template>
-                            <router-link to="/"><el-menu-item index="2-1">2018年</el-menu-item></router-link>
+                            <!--<router-link :to="{path:'/list',query: {lid: 4}}"><el-menu-item index="2-1">2018年</el-menu-item></router-link>-->
+                            <a @click="ToList(4)"><el-menu-item index="2-1">2018年</el-menu-item></a>
+
                             <!--<router-link to="/"><el-menu-item index="1-2">选项二</el-menu-item></router-link>-->
                         </el-menu-item-group>
                     </el-submenu>
@@ -81,7 +86,15 @@
             },
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
+            },
+            ToList(data) {
+//                console.log(data)
+                // 命名的路由
+                this.$router.push({ name: 'NovelList2', params: { id: data }})
+//                this.$router.go(0)
             }
-        }
+        },
+
+
     }
 </script>

@@ -1,4 +1,4 @@
-<!--展示所有文章-->
+<!--按照分类展示文章列表-->
 <template>
   <!--<transition name="slide-fade" mode="out-in">-->
   <div class="NovelList">
@@ -51,18 +51,23 @@
               list: [],
               title: '父组件向子组件传递数据',
               content: '在 Vue 中，可以使用 props 向子组件传递数据。',
-              dialogVisible: false
+              dialogVisible: false,
+              current_nid:0
             }
         },
         mounted(){
-          Vue.resource('/novel_list?id=2').get().then((response) => {
-  //							console.log(response)
-            return response.data
-          }).then((result) => {
-//            this.loading = false;
-            this.list = this.list.concat(result.novel);
-          console.log('返回数据结果：', result)
-        });
+          this.current_nid = this.$route.params.id;
+          this.LoadData(this.current_nid);
+////          console.log(this.current_nid);
+////          if(this.current_nid != 0){
+//            Vue.resource('/novel_list2?id='+this.current_nid).get().then((response) => {
+//              //							console.log(response)
+//              return response.data
+//            }).then((result) => {
+//              this.list = this.list.concat(result.novel);
+//              console.log('返回数据结果：', result)
+//            });
+////          }
         },
         methods: {
             LinkTo: function (event) {
@@ -73,6 +78,28 @@
                 // 命名的路由
                 this.$router.push('/novel?id='+data)
             },
+            getStatus (urlStr) {
+              var urlStrArr = urlStr.split('/')
+              return urlStrArr[urlStrArr.length - 1]
+            },
+            LoadData(data) {
+              Vue.resource('/novel_list2?id='+data).get().then((response) => {
+                return response.data
+              }).then((result) => {
+                this.list = this.list.concat(result.novel);
+                console.log('返回数据结果：', result)
+              });
+            }
+        },
+        watch: {
+          '$route' (to, from) {
+  //                console.log(this.getStatus(this.$route.path))
+            var data = this.getStatus(this.$route.path)
+            console.log('path:'+data);
+            this.list = [];
+            this.LoadData(data);
+//          }
+          }
         }
 
 

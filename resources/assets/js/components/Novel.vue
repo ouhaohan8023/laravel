@@ -1,3 +1,4 @@
+<!--文章详情展示-->
 <template>
 	<!--<transition name="bounce" mode="out-in">-->
 	<div id="tags" class="container">
@@ -14,7 +15,11 @@
 			</el-row>
 			<tag-el v-bind:tagsList="tagsList"></tag-el>
 			<div class="content">
-				<h4 v-html="contents"></h4>
+				<div class="" style="display: block;">
+					<div class="markdown-body editormd-preview-container" previewcontainer="true" style="">
+						<div v-html="contents"></div>
+					</div>
+				</div>
 				<el-row class="reward">
 					<!--<el-tag type="danger">已有<b>{{read}}</b>人阅读</el-tag>-->
 					<el-button type="danger" round v-on:click="addLove" :disabled="love_btn">{{love_word}}</el-button>
@@ -88,6 +93,11 @@
 	}
 	.read{
 		text-align: right;
+	}
+	.content .editormd-preview-container{
+		padding: 8px;
+		color: inherit;
+		background-color: inherit;
 	}
 </style>
 <script>

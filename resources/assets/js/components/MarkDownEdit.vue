@@ -4,7 +4,7 @@
 		<el-row>
 			<el-col :span="24">
 				<div style="text-align: center;margin-bottom: 10px">
-					<el-input placeholder="请输入内容" v-model="input5" class="input-with-select input-ohh" style="width: 95%">
+					<el-input v-model="input5" class="input-with-select input-ohh" style="width: 95%">
 						<el-select v-model="select" slot="prepend" placeholder="请选择">
 							<el-option label="原创" value="1"></el-option>
 							<el-option label="转载" value="2"></el-option>
@@ -17,12 +17,17 @@
 
 		<el-row>
 			<el-col :span="24">
-				<div id="test-editormd">
-					<textarea id="markdown-textarea" class="editormd-markdown-textarea" name="test-editormd-markdown-textarea"
-										style="display:none;"></textarea>
-					<textarea id="html-code" class="editormd-html-textarea" name="test-editormd-html-code"
-										style="display:none;"></textarea>
-				</div>
+				<el-col :span="12">
+					<textarea>
+					{{mdInput}}
+					</textarea>
+				</el-col>
+				<el-col id="test-editormd" :span="12">
+					<!--<textarea id="markdown-textarea" class="editormd-markdown-textarea" name="test-editormd-markdown-textarea"-->
+										<!--style="display:none;">{{mdInput}}</textarea>-->
+					<!--<textarea id="html-code" class="editormd-html-textarea" name="test-editormd-html-code"-->
+										<!--style="display:none;"></textarea>-->
+				</el-col>
 			</el-col>
 		</el-row>
 		<el-row>
@@ -88,8 +93,8 @@
 //        props:['isCollapse'];
 		data() {
 			return {
-//				isCollapse: isCollapse,
-//				ShowTitle: ShowTitle,
+				isCollapse: isCollapse,
+				ShowTitle: ShowTitle,
 				input5: '',
 				select: '1',
 				checkList: [],
@@ -112,22 +117,20 @@
 							label: '2018年6月',
 						}]
 					}],
-				selectedOptions3: ['3', '4']
+				selectedOptions3: ['3', '4'],
+				mdInput: '###看看111',
+				current_nid:'',
+				maintitle:'',
+
 			}
 		},
+		create(){
+
+		},
 		mounted(){
-			Vue.resource('/getLabel').get().then((response) => {
-				//							console.log(response)
-				return response.data
-			}
-		).
-			then((result) => {
-				console.log('标签结果：', result)
-//            this.loading = false;
-//                this.list = this.list.concat(result.novel);
-			this.items = this.items.concat(result);
-		})
-			;
+			this.current_nid = this.$route.query.id;
+			console.log(this.current_nid)
+			this.Edit(this.current_nid);
 		},
 		methods: {
 			getValue() {
@@ -175,16 +178,33 @@
 						}
 			});
 			},
+			Edit(data) {
+				Vue.resource('/novel_detail?id='+data).get().then((response) => {
+					return response.data
+				}).then((result) => {
+//				console.log('名字:'+result.novel.name);
+				this.input5 = result.novel.n_mainname;
+				this.mdInput = result.novel.n_md;
+				console.log(this.mdInput);
+				$('#markdown-textarea').html(this.mdInput);
+				testEditormdView = editormd.markdownToHTML("test-editormd", {
+					markdown        : this.mdInput ,//+ "\r\n" + $("#append-test").text(),
+					//htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+					htmlDecode      : "style,script,iframe",  // you can filter tags decode
+					//toc             : false,
+					tocm            : true,    // Using [TOCM]
+					//tocContainer    : "#custom-toc-container", // 自定义 ToC 容器层
+					//gfm             : false,
+					//tocDropdown     : true,
+					// markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+					emoji           : true,
+					taskList        : true,
+					tex             : true,  // 默认不解析
+					flowChart       : true,  // 默认不解析
+					sequenceDiagram : true,  // 默认不解析
+				});
+			});
+			}
 		}
 	}
-	//markdown
-	//    var testEditor = editormd("test-editormd", {
-	//        //        width  : "90%",
-	//        //        height : 640,
-	//        //        path   : "../lib/",
-	//        theme : "dark",
-	//        previewTheme : "dark",
-	//        editorTheme : "pastel-on-dark",
-	//        saveHTMLToTextarea : true
-	//    });
 </script>

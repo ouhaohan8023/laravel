@@ -5,12 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class NovelController extends Controller
 {
     //列表展示
     public function index(){
-        $list = DB::table('la_novels')->get();
+//        $find['n_two'] = isset($_GET['id'])?$_GET['id']:null;
+        $list = DB::table('la_novels')->leftJoin('la_icon_link','la_novels.n_type','=','la_icon_link.ic_id')->get();
+        $data = ['novel' => $list];
+        return $data;
+    }
+    //列表展示,分类
+    public function indexList(){
+        $find['n_two'] = Input::get('id');
+        $list = DB::table('la_novels')->where($find)->leftJoin('la_icon_link','la_novels.n_type','=','la_icon_link.ic_id')->get();
         $data = ['novel' => $list];
         return $data;
     }
@@ -18,7 +27,7 @@ class NovelController extends Controller
     //个人列表展示
     public function index_own(){
         $uid = Auth::id();
-        $list = DB::table('la_novels')->where(['n_uid'=>$uid])->get();
+        $list = DB::table('la_novels')->where(['n_uid'=>$uid])->leftJoin('la_icon_link','la_novels.n_type','=','la_icon_link.ic_id')->get();
         $data = ['novel' => $list];
         return $data;
     }

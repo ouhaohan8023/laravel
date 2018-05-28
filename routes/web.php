@@ -27,6 +27,7 @@
   });
 
 	Route::get ('/novel_list' , 'NovelController@index');
+	Route::get ('/novel_list2' , 'NovelController@indexList');
 	//个人中心
 	Route::get ('/novel_list_own' , 'NovelController@index_own');
 
@@ -38,10 +39,16 @@
 
 	Route::get ('/home' , 'HomeController@index')->name ('home');
 	Route::get ('/admin' , 'HomeController@admin');
+
 	Route::get ('/writeNovel' , 'HomeController@writeNovel');
 	Route::get ('/listNovel' , 'HomeController@listNovel');
 	//markDown
 	Route::get ('/markDown' , 'HomeController@markDown');
+	Route::post ('/saveNovel' , 'HomeController@markDownSave');
+	Route::get ('/markDownEdit' , 'HomeController@markDownEdit');
+
+	Route::get ('/getLabel' , 'HomeController@getLabel');
+
 	Route::get ('/sysIndex' , 'SysController@index');
 
 

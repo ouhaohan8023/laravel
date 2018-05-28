@@ -1,3 +1,4 @@
+<!--标签-->
 <template>
 	<div id="tag">
 		<el-tag v-for="item in tagsList" :key="item.id" type="success">{{item.t_name}}</el-tag>
