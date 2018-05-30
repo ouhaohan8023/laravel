@@ -19,7 +19,7 @@ class NovelController extends Controller
     //列表展示,分类
     public function indexList(){
         $find['n_two'] = Input::get('id');
-        $list = DB::table('la_novels')->where($find)->leftJoin('la_icon_link','la_novels.n_type','=','la_icon_link.ic_id')->get();
+        $list = DB::table('la_novels')->where($find)->leftJoin('la_icon_link','la_novels.n_type','=','la_icon_link.ic_id')->orderByRaw('n_id DESC')->get();
         $data = ['novel' => $list];
         return $data;
     }

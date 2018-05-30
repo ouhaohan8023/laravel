@@ -63,6 +63,7 @@ class HomeController extends Controller
     public function markDownSave()
     {
         $data['n_mainname'] = Input::get('title');
+        $data['n_overview'] = Input::get('text');
         $data['n_content'] = Input::get('html');
         $data['n_tags'] = Input::get('tags');
         $data['n_md'] = Input::get('md');

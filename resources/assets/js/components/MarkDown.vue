@@ -17,6 +17,21 @@
 
 		<el-row>
 			<el-col :span="24">
+				<div style="text-align: center;margin-bottom: 10px">
+					<el-input
+						class="input-ohh"
+						type="textarea"
+						autosize
+						placeholder="请用一两句话概括本篇文章，用于文章简述"
+						v-model="textarea2"
+						style="width: 95%;">
+					</el-input>
+				</div>
+			</el-col>
+		</el-row>
+
+		<el-row>
+			<el-col :span="24">
 				<div id="test-editormd">
 					<textarea id="markdown-textarea" class="editormd-markdown-textarea" name="test-editormd-markdown-textarea"
 										style="display:none;"></textarea>
@@ -82,6 +97,9 @@
 	.novelClassify {
 		color: #606266;
 	}
+	.el-textarea__inner{
+		background-color:#2c2827 ;
+	}
 </style>
 <script>
 	export default {
@@ -112,7 +130,8 @@
 							label: '2018年6月',
 						}]
 					}],
-				selectedOptions3: ['3', '4']
+				selectedOptions3: ['3', '4'],
+				textarea2: '',
 			}
 		},
 		mounted(){
@@ -151,7 +170,8 @@
 					level: this.select,
 					tags: this.checkListStr,
 					classify: this.selectedOptions3,
-					type: this.select
+					type: this.select,
+					text: this.textarea2
 				}).then((response) => {
 					//							console.log(response)
 					return response.data
