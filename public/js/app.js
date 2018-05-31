@@ -100889,7 +100889,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n.footerBtn {\n\ttext-align: right;\n\tpadding-right: 20px;\n}\n.el-select .el-input {\n\twidth: 130px;\n}\n.input-with-select .el-input-group__prepend {\n\tbackground-color: #fff;\n}\n.el-input-group__prepend div.el-select .el-input__inner {\n\tcolor: #999999;\n\tbackground-color: #2c2827;\n}\n.input-ohh .el-input__inner {\n\tcolor: #999999;\n\tbackground-color: #2c2827;\n}\n.el-input-group__prepend div.el-select:hover .el-input__inner {\n\tcolor: #999999;\n\tbackground-color: #2c2827;\n}\n.el-checkbox__input.is-checked .el-checkbox__inner {\n\tbackground-color: #2c2827;\n\tborder-color: #2c2827;\n}\n.novelClassify {\n\tcolor: #606266;\n}\n", ""]);
+exports.push([module.i, "\n.footerBtn {\n\ttext-align: right;\n\tpadding-right: 20px;\n}\n.el-select .el-input {\n\twidth: 130px;\n}\n.input-with-select .el-input-group__prepend {\n\tbackground-color: #fff;\n}\n.el-input-group__prepend div.el-select .el-input__inner {\n\tcolor: #999999;\n\tbackground-color: #2c2827;\n}\n.input-ohh .el-input__inner {\n\tcolor: #999999;\n\tbackground-color: #2c2827;\n}\n.el-input-group__prepend div.el-select:hover .el-input__inner {\n\tcolor: #999999;\n\tbackground-color: #2c2827;\n}\n.el-checkbox__input.is-checked .el-checkbox__inner {\n\tbackground-color: #2c2827;\n\tborder-color: #2c2827;\n}\n.novelClassify {\n\tcolor: #606266;\n}\n.el-textarea__inner{\n\tbackground-color:#2c2827 ;\n}\n", ""]);
 
 // exports
 
@@ -100900,6 +100900,24 @@ exports.push([module.i, "\n.footerBtn {\n\ttext-align: right;\n\tpadding-right: 
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -101012,7 +101030,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					label: '2018年6月'
 				}]
 			}],
-			selectedOptions3: ['3', '4']
+			selectedOptions3: ['3', '4'],
+			textarea2: ''
 		};
 	},
 	mounted: function mounted() {
@@ -101053,7 +101072,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				level: this.select,
 				tags: this.checkListStr,
 				classify: this.selectedOptions3,
-				type: this.select
+				type: this.select,
+				text: this.textarea2
 			}).then(function (response) {
 				//							console.log(response)
 				return response.data;
@@ -101159,6 +101179,40 @@ var render = function() {
                   ],
                   1
                 )
+              ],
+              1
+            )
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        [
+          _c("el-col", { attrs: { span: 24 } }, [
+            _c(
+              "div",
+              {
+                staticStyle: { "text-align": "center", "margin-bottom": "10px" }
+              },
+              [
+                _c("el-input", {
+                  staticClass: "input-ohh",
+                  staticStyle: { width: "95%" },
+                  attrs: {
+                    type: "textarea",
+                    autosize: "",
+                    placeholder: "请用一两句话概括本篇文章，用于文章简述"
+                  },
+                  model: {
+                    value: _vm.textarea2,
+                    callback: function($$v) {
+                      _vm.textarea2 = $$v
+                    },
+                    expression: "textarea2"
+                  }
+                })
               ],
               1
             )
@@ -102208,18 +102262,8 @@ var render = function() {
                           _vm._v(_vm._s(o.n_mainname))
                         ],
                         1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "el-button",
-                        {
-                          staticStyle: { float: "right", padding: "3px 0" },
-                          attrs: { type: "text" }
-                        },
-                        [_vm._v("操作按钮")]
                       )
-                    ],
-                    1
+                    ]
                   ),
                   _vm._v("\n          " + _vm._s(o.n_overview) + "\n        ")
                 ]
