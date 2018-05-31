@@ -42,7 +42,7 @@ class HomeController extends Controller
     public function listNovel()
     {
         $user = Auth::id();
-        $list = DB::table('la_novels')->where(['n_uid'=>$user])->get();
+        $list = DB::table('la_novels')->where(['n_uid'=>$user])->OrderBy('n_id', 'DESC')->get();
         return view('home/listNovel',['list'=>$list]);
     }
     //MarkDown
