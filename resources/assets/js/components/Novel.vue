@@ -87,7 +87,7 @@
 		text-align: center;
 	}
 	.time_read{
-		font-size: 8px;
+		font-size: 12px;
 		color: #89a071;
 		margin-bottom: 10px;
 	}
