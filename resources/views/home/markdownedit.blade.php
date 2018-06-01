@@ -198,7 +198,8 @@
         isCollapse = true;
         ShowTitle = true;
     }
-    app.input5 = '{{$data->n_mainname}}';
+    {{--app.input5 = '{{$data->n_mainname}}';--}}
+    app.set(input5, '{{$data->n_mainname}}');
     {{--document.getElementsByClassName('.input-ohh .el-input__inner').value = '{{$data->n_mainname}}';--}}
    console.log('标题:'+app.input5);
 
