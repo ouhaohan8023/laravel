@@ -4,7 +4,16 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
+	<!--默认使用极速内核：针对国内浏览器产商-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+	<meta name="description"  content="Ohh的博客,一个叙述生活的地方" />
+	<meta name="keywords"  content="Ohh,Ohh的博客,Ohh Blog,科学上网,ShadowsocksR,PHP,Laravel,VueJs" />
+	<meta name="robots" content="index,follow" />
+	<meta name="google" content="index,follow" />
+	<meta name="googlebot" content="index,follow" />
+	<meta name="verify" content="index,follow" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
