@@ -198,15 +198,10 @@
         isCollapse = true;
         ShowTitle = true;
     }
-    app.input5 = '{{$data->n_mainname}}';
-    {{--document.getElementsByClassName('.input-ohh .el-input__inner').value = '{{$data->n_mainname}}';--}}
-//    console.log('标题:'+app.input5);
-
     $(document).ready(function () {
         $('.input-ohh input:eq(1)').val('{{$data->n_mainname}}')
     })
 </script>
 @include('markdown::encode',['editors'=>['test-editormd']])
-
 </body>
 </html>

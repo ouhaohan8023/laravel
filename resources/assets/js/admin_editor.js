@@ -70,39 +70,39 @@ const app = new Vue({
         getValue() {
             var markdowntextarea = $('#markdown-textarea').html();
             var htmlcode = $('#html-code').text();
-//				console.log('text:' + markdowntextarea);
-//				console.log('html:' + htmlcode);
-//				console.log('title:' + this.input5);
-//				console.log('level:' + this.select);
-//        console.log(this.checkList)
-            this.checkListStr = '';
-            for (var i = 0; i < (this.checkList.length); i++) {
-                this.checkListStr = this.checkListStr + this.checkList[i] + ',';
-            }
-//				console.log(this.checkListStr);
-
-            Vue.http.post('/saveNovel', {
-                md: markdowntextarea,
-                html: htmlcode,
-                title: this.input5,
-                level: this.select,
-                tags: this.checkListStr,
-                classify: this.selectedOptions3,
-                type: this.select
-            }).then((response) => {
-                //							console.log(response)
-                return response.data
-            }
-        ).
-            then((result) => {
-                if(result.code == 200){
-                //成功
-                this.openSuccess('您的文章发送成功！');
-            }else{
-                //失败
-//					this.open('您的文章发送失败！');
-            }
-        });
+				console.log('text:' + markdowntextarea);
+				console.log('html:' + htmlcode);
+				console.log('title:' + this.input5);
+				console.log('level:' + this.select);
+       console.log(this.checkList)
+//             this.checkListStr = '';
+//             for (var i = 0; i < (this.checkList.length); i++) {
+//                 this.checkListStr = this.checkListStr + this.checkList[i] + ',';
+//             }
+// //				console.log(this.checkListStr);
+//
+//             Vue.http.post('/saveNovel', {
+//                 md: markdowntextarea,
+//                 html: htmlcode,
+//                 title: this.input5,
+//                 level: this.select,
+//                 tags: this.checkListStr,
+//                 classify: this.selectedOptions3,
+//                 type: this.select
+//             }).then((response) => {
+//                 //							console.log(response)
+//                 return response.data
+//             }
+//         ).
+//             then((result) => {
+//                 if(result.code == 200){
+//                 //成功
+//                 this.openSuccess('您的文章发送成功！');
+//             }else{
+//                 //失败
+// //					this.open('您的文章发送失败！');
+//             }
+//         });
         },
         openSuccess(msg) {
             this.$alert(msg, '提示', {
