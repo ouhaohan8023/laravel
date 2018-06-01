@@ -87,9 +87,9 @@ class HomeController extends Controller
     /**
      * @TODO 修改文章用vuejs加载不出来，暂时用新页面代替，希望有大神改进
      */
-    public function markDownEdit()
+    public function markDownEdit($id)
     {
-        $find['n_id'] = 20;
+        $find['n_id'] = $id;
         $find['n_uid'] = Auth::id();
         $list = DB::table('la_tags')->where(['t_u_id'=>$find['n_uid']])->get();
         $data = DB::table('la_novels')->where($find)->first();
