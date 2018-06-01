@@ -51,6 +51,18 @@
 			width: 100%;
 		}
 	</style>
+
+	{{--百度站长--}}
+	<script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?c0d98d5457659db7c058b39cdf2d03d7";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
+
 </head>
 <body>
 <div id="app">
