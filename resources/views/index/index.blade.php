@@ -37,6 +37,7 @@
 		body{
 			background-color: #efeeea;
 			margin-top:0;
+			font-family: "Microsoft Yahei";
 		}
 		.el-header{
 			position: fixed;
