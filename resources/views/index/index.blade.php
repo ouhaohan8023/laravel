@@ -116,7 +116,7 @@
 </div>
 <script>
 	var User = "{{ Auth::user() }}";
-	var Logo = "{{ config('app.name', 'Laravel') }}";
+	var Logo = "{{ config('app.logo') }}";
 	var isLogin = true;
 	@guest
 		var userName = "游客";
