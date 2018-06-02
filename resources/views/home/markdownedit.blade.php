@@ -13,7 +13,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/admin_editor.js') }}" defer></script>
 
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    {{--<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>--}}
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
@@ -95,6 +95,9 @@
         .novelClassify {
             color: #606266;
         }
+        .input-ohh .el-textarea__inner{
+            background-color:#2c2827 ;
+        }
     </style>
 </head>
 <body>
@@ -120,13 +123,28 @@
                                 <el-row>
                                     <el-col :span="24">
                                         <div style="text-align: center;margin-bottom: 10px">
-                                            <el-input  class="input-with-select input-ohh"
+                                            <el-input  class="input-with-select input-ohh" v-model="input5"
                                                       style="width: 95%">
                                                 <el-select v-model="select" slot="prepend" placeholder="请选择">
                                                     <el-option label="原创" value="1"></el-option>
                                                     <el-option label="转载" value="2"></el-option>
                                                     <el-option label="翻译" value="3"></el-option>
                                                 </el-select>
+                                            </el-input>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+
+                                <el-row>
+                                    <el-col :span="24">
+                                        <div style="text-align: center;margin-bottom: 10px">
+                                            <el-input
+                                                    class="input-ohh"
+                                                    type="textarea"
+                                                    autosize
+                                                    placeholder="请用一两句话概括本篇文章，用于文章简述"
+                                                    v-model="textarea2"
+                                                    style="width: 95%;">
                                             </el-input>
                                         </div>
                                     </el-col>
@@ -161,6 +179,9 @@
                                         @endforeach
                                     </el-checkbox-group>
                                 </el-row>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                                 <el-row class="footerBtn">
                                     <el-button type="primary" plain v-on:click="getValue">发布</el-button>
                                 </el-row>
@@ -192,20 +213,23 @@
     var LoginUrl = '{{ route('login') }}'
     var isCollapse = false;
     var ShowTitle = false;
-    //	console.log(document.body.clientWidth)
+
+    var nid = '{{$data->n_id}}';
+    var input5 = '{{$data->n_mainname}}';
+    var select = '{{$data->n_type}}';
+    var selectedOptions3 = ['{{$data->n_one}}','{{$data->n_two}}'];
+    var textarea2 = '{{$data->n_overview}}';
+
+    var checkList = '{{$data->n_tags}}'.split(',');
+    checkList.forEach(function(e,index){
+        checkList[index] = parseInt(e)
+    });
     ScreenWidth = document.body.clientWidth;
     if (ScreenWidth <= 764) {
         isCollapse = true;
         ShowTitle = true;
     }
-    {{--app.input5 = '{{$data->n_mainname}}';--}}
-    app.set(input5, '{{$data->n_mainname}}');
-    {{--document.getElementsByClassName('.input-ohh .el-input__inner').value = '{{$data->n_mainname}}';--}}
-   console.log('标题:'+app.input5);
 
-    $(document).ready(function () {
-        $('.input-ohh input:eq(1)').val('{{$data->n_mainname}}')
-    })
 </script>
 @include('markdown::encode',['editors'=>['test-editormd']])
 </body>

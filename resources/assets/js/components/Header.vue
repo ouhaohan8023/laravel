@@ -10,7 +10,7 @@
           text-color="#fff"
           active-text-color="#ffd04b">
             <el-menu-item index="1">{{logo}}</el-menu-item>
-            <el-menu-item class="SignIn" v-if="isLogin" index="2"><a :href="RegisterUrl">注册</a></el-menu-item>
+            <!--<el-menu-item class="SignIn" v-if="isLogin" index="2"><a :href="RegisterUrl">注册</a></el-menu-item>-->
             <el-menu-item class="SignUp" v-if="isLogin" index="3"><a :href="LoginUrl">登陆</a></el-menu-item>
             <el-submenu
               index="4"
@@ -36,6 +36,7 @@
 <style>
     .el-header{
         padding: 0;
+        right:0;
     }
     .el-menu--horizontal>.el-submenu{
         float: right;

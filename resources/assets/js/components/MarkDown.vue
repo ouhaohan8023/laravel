@@ -158,9 +158,10 @@
 //				console.log('level:' + this.select);
 //        console.log(this.checkList)
 				this.checkListStr = '';
-				for (var i = 0; i < (this.checkList.length); i++) {
-					this.checkListStr = this.checkListStr + this.checkList[i] + ',';
-				}
+				this.checkListStr = this.checkList.join();
+//				for (var i = 0; i < (this.checkList.length); i++) {
+//					this.checkListStr = this.checkListStr + this.checkList[i] + ',';
+//				}
 //				console.log(this.checkListStr);
 
 				Vue.http.post('/saveNovel', {

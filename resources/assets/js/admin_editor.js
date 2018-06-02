@@ -37,72 +37,75 @@ const router = new VueRouter({
     routes
 })
 
-const app = new Vue({
+const VmApp = new Vue({
     el: '#app',
     router,
     data:{
-        message:'sdfs',
-        options: [
-            {
-                value: '1',
-                label: '程序相关',
-                children: [{
-                    value: '2',
-                    label: 'PHP',
-                }]
-            },
-            {
-                value: '3',
-                label: '浮生杂谈',
-                children: [{
-                    value: '4',
-                    label: '2018年6月',
-                }]
-            }],
-        selectedOptions3: ['3', '4'],
-        input5: '',
-        select: '1',
-        checkList: [],
-        checkListStr: '',
-        items: [],
+      message:'sdfs',
+      options: [
+          {
+              value: '1',
+              label: '程序相关',
+              children: [{
+                  value: '2',
+                  label: 'PHP',
+              }]
+          },
+          {
+              value: '3',
+              label: '浮生杂谈',
+              children: [{
+                  value: '4',
+                  label: '2018年6月',
+              }]
+          }],
+      selectedOptions3: selectedOptions3,
+      input5: input5,
+      select: select,
+      checkList: checkList,
+      checkListStr: '',
+      items: [],
+      textarea2: textarea2,
     },
     methods: {
         getValue() {
-            var markdowntextarea = $('#markdown-textarea').html();
-            var htmlcode = $('#html-code').text();
-				console.log('text:' + markdowntextarea);
-				console.log('html:' + htmlcode);
-				console.log('title:' + this.input5);
-				console.log('level:' + this.select);
-       console.log(this.checkList)
-//             this.checkListStr = '';
-//             for (var i = 0; i < (this.checkList.length); i++) {
-//                 this.checkListStr = this.checkListStr + this.checkList[i] + ',';
-//             }
-// //				console.log(this.checkListStr);
-//
-//             Vue.http.post('/saveNovel', {
-//                 md: markdowntextarea,
-//                 html: htmlcode,
-//                 title: this.input5,
-//                 level: this.select,
-//                 tags: this.checkListStr,
-//                 classify: this.selectedOptions3,
-//                 type: this.select
-//             }).then((response) => {
-//                 //							console.log(response)
-//                 return response.data
-//             }
-//         ).
-//             then((result) => {
-//                 if(result.code == 200){
-//                 //成功
-//                 this.openSuccess('您的文章发送成功！');
-//             }else{
-//                 //失败
-// //					this.open('您的文章发送失败！');
-//             }
-//         });
+          var markdowntextarea = $('#markdown-textarea').html();
+          var htmlcode = $('#html-code').text();
+//				console.log('text:' + markdowntextarea);
+//				console.log('html:' + htmlcode);
+//				console.log('title:' + this.input5);
+//				console.log('level:' + this.select);
+//        console.log(this.checkList)
+          this.checkListStr = '';
+          this.checkListStr = this.checkList.join();
+//				for (var i = 0; i < (this.checkList.length); i++) {
+//					this.checkListStr = this.checkListStr + this.checkList[i] + ',';
+//				}
+//				console.log(this.checkListStr);
+
+          Vue.http.put('/doMarkDownEdit/'+nid, {
+            md: markdowntextarea,
+            html: htmlcode,
+            title: this.input5,
+            level: this.select,
+            tags: this.checkListStr,
+            classify: this.selectedOptions3,
+            type: this.select,
+            text: this.textarea2
+          }).then((response) => {
+            //							console.log(response)
+            return response.data
+          }
+        ).
+          then((result) => {
+            if(result.code == 200){
+            //成功
+            this.openSuccess('您的文章修改成功！');
+          }else{
+            //失败
+//					this.open('您的文章发送失败！');
+          }
+        });
         },
         openSuccess(msg) {
             this.$alert(msg, '提示', {

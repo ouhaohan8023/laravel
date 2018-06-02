@@ -94,8 +94,43 @@ class HomeController extends Controller
         $list = DB::table('la_tags')->where(['t_u_id'=>$find['n_uid']])->get();
         $data = DB::table('la_novels')->where($find)->first();
 
-//        var_dump($list);die;
         return view('home/markdownedit',['data'=>$data,'list'=>$list]);
+    }
+
+    /**
+     * 修改操作
+     */
+    public function doMarkDownEdit($id)
+    {
+        $find['n_id'] = $id;
+        $find['n_uid'] = Auth::id();
+
+        $datafind = DB::table('la_novels')->where($find)->first();
+        if($datafind){
+            $data['n_mainname'] = Input::get('title');
+            $data['n_overview'] = Input::get('text');
+            $data['n_content'] = Input::get('html');
+            $data['n_tags'] = Input::get('tags');
+            $data['n_md'] = Input::get('md');
+            $classify = Input::get('classify');
+            $data['n_one'] = $classify[0];
+            $data['n_two'] = $classify[1];
+            $data['n_type'] = Input::get('type');
+            $data['n_changetime'] = date('Y-m-d H:i:s');
+            $update = DB::table('la_novels')->where($find)->update($data);
+            if($update){
+                $ret['code'] = 200;
+                $ret['msg'] = 'OK';
+            }else{
+                $ret['code'] = 400;
+                $ret['msg'] = 'error';
+            }
+        }else{
+            $ret['code'] = 404;
+            $ret['msg'] = 'not find';
+        }
+
+
     }
 
 }
