@@ -1,33 +1,38 @@
 import Home from './components/Hello.vue'
 import Novel from './components/Novel.vue'
 import NovelList from './components/NovelList_MyBlog.vue'
-import MarkDown from './components/MarkDown.vue'
-import MarkDownEdit from './components/MarkDownEdit.vue'
+import MarkDownVueEdit from './components/MarkDownVueEdit.vue'
+import MarkDownVue from './components/MarkDownVue.vue'
+
 
 const routes = [
     {
         path: '/',
-        component: MarkDown
+        component: NovelList
     },
     {
         path: '/novel',
         component: Novel
     },
-    {
-        path: '/novel:id',
-        component: Novel
-    },
+    //{
+    //    path: '/novel:id',
+    //    component: Novel
+    //},
     {
         path: '/myBlog',
         component: NovelList
     },
+    //{
+    //    path: '/markDown',
+    //    component: MarkDown
+    //},
     {
-        path: '/markDown',
-        component: MarkDown
+        path: '/markDownVue',
+        component: MarkDownVue
     },
     {
         path: '/markDownEdit',
-        component: MarkDownEdit
+        component: MarkDownVueEdit
     }
 
 ]

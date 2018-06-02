@@ -129,6 +129,7 @@ class HomeController extends Controller
             $ret['code'] = 404;
             $ret['msg'] = 'not find';
         }
+        return $ret;
 
 
     }

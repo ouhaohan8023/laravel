@@ -37,10 +37,12 @@ const router = new VueRouter({
     routes
 })
 
+//var editor = require('./components/MarkDownVue.vue');
 const app = new Vue({
     el: '#app',
     router,
     data:{
         message:'sdfs',
-    }
+    },
+      //render: h => h(editor)
 });

@@ -68,11 +68,7 @@
                     </el-col>
                     <el-col :span="20">
                         <el-main>
-                            {{--<breadcrumb></breadcrumb>--}}
-                            {{--<novel></novel>--}}
-                            <transition name="component-fade" mode="out-in">
-                                <router-view></router-view>
-                            </transition>
+                            <mavon-editor v-model="message"/>
                         </el-main>
                     </el-col>
                 </el-row>
@@ -83,7 +79,6 @@
         </form>
     </main>
 </div>
-@include('markdown::encode',['editors'=>['test-editormd']])
 <script>
     var User = "{{ Auth::user() }}";
     var Logo = "{{ config('app.name', 'Laravel') }}";
@@ -107,24 +102,7 @@
         ShowTitle = true;
     }
 
-    //markdown
-    var testEditor = editormd("test-editormd", {
-//        width  : "90%",
-//        height : 640,
-//        path   : "../lib/",
-        theme : "dark",
-        previewTheme : "dark",
-        editorTheme : "pastel-on-dark",
-        saveHTMLToTextarea : true
-    });
 
 </script>
 </body>
 </html>
-
-
-<div id="test-editormd">
-    <textarea name="test-editormd" style="display:none;"></textarea>
-</div>
-
-@include('markdown::encode',['editors'=>['test-editormd']])

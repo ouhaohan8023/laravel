@@ -25,4 +25,9 @@ class IndexController extends Controller
     {
         return view('index/index');
     }
+
+//    public function mdVue()
+//    {
+//        return view('home/66markDown');
+//    }
 }

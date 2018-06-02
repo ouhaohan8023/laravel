@@ -31,6 +31,10 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="/ico/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/ico/favicon-16x16.png">
 	<link rel="manifest" href="/ico/site.webmanifest">
+
+	{{--md样式--}}
+	<link rel="stylesheet" href="/css/editormd.min.css">
+
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
 
@@ -111,7 +115,6 @@
 		<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 			@csrf
 		</form>
-		@include('markdown::encode',['editors'=>['test-editormd']])
 	</main>
 </div>
 <script>

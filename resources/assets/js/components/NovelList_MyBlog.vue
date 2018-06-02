@@ -82,7 +82,9 @@
                 this.$router.push('/novel?id='+data)
             },
             Edit(data){
-              window.open('/markDownEdit/'+data)
+              this.$router.push('/markDownEdit?id='+data)
+
+//              window.open('/markDownEdit/'+data)
             }
         }
 

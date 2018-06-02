@@ -21,8 +21,9 @@
                         </template>
                         <el-menu-item-group>
                             <template slot="title" v-if="ShowTitle">我的博客</template>
-                            <router-link to="/markDown"><el-menu-item index="1-1">发表博客</el-menu-item></router-link>
-                            <router-link to="/myBlog"><el-menu-item index="1-2">博客列表</el-menu-item></router-link>
+                            <!--<router-link to="/markDown"><el-menu-item index="1-1">发表博客</el-menu-item></router-link>-->
+                            <router-link to="/markDownVue"><el-menu-item index="1-2">发表博客</el-menu-item></router-link>
+                            <router-link to="/myBlog"><el-menu-item index="1-3">博客列表</el-menu-item></router-link>
                         </el-menu-item-group>
                         <!--<el-menu-item-group title="分组2">-->
                             <!--<el-menu-item index="1-3">选项3</el-menu-item>-->
@@ -85,10 +86,10 @@
                 console.log(key, keyPath);
             },
             handleSelect(key, keyPath) {
-                console.log(keyPath[1]);
-                if(keyPath[1] == '1-1'){
-                    location.reload();
-                }
+//                console.log(keyPath[1]);
+//                if(keyPath[1] == '1-1'){
+//                    location.reload();
+//                }
             }
         }
     }

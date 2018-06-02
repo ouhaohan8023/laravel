@@ -47,6 +47,7 @@
 	Route::post ('/saveNovel' , 'HomeController@markDownSave');
 	Route::get ('/markDownEdit/{id}' , 'HomeController@markDownEdit');
 	Route::put ('/doMarkDownEdit/{id}' , 'HomeController@doMarkDownEdit');
+	Route::get ('/mdVue' , 'IndexController@mdVue');
 
 
 	Route::get ('/getLabel' , 'HomeController@getLabel');
