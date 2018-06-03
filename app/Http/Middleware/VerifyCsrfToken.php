@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
         "saveNovel",
-        "doMarkDownEdit/*"
+        "doMarkDownEdit/*",
+//        "/sys/tagsControllerAdd"
     ];
 }

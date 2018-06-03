@@ -146,7 +146,7 @@
 		},
 		mounted(){
 			//tags
-			Vue.resource('/getLabel').get().then((response) => {
+			this.$http.get('/getLabel').then((response) => {
 				return response.data
 			}).then((result) => {
 				console.log('标签结果：', result)
@@ -154,7 +154,7 @@
 			});
 			//文章内容
 			this.current_nid = this.$route.query.id;
-			Vue.resource('/novel_detail?id='+this.current_nid).get().then((response) => {
+			this.$http.get('/novel_detail?id='+this.current_nid).then((response) => {
 				//							console.log(response)
 				return response.data
 			}).then((result) => {
@@ -192,7 +192,7 @@
 				this.checkListStr = '';
 				this.checkListStr = this.checkList.join();
 
-				Vue.http.put('/doMarkDownEdit/'+this.current_nid, {
+				this.$http.put('/doMarkDownEdit/'+this.current_nid, {
 					md: this.markdowntextarea,
 					html: this.htmlcode,
 					title: this.input5,

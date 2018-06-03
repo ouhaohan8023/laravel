@@ -127,7 +127,7 @@
 				},
         mounted(){
 					this.current_nid = this.$route.query.id;
-					Vue.resource('/novel_detail?id='+this.current_nid).get().then((response) => {
+					this.$http.get('/novel_detail?id='+this.current_nid).then((response) => {
 					//							console.log(response)
 						return response.data
 					}).then((result) => {
@@ -151,7 +151,7 @@
 				addLove: function (event) {
 //					console.log(this.current_nid);
 					this.love = this.love + 1;
-					Vue.resource('/novel_add_love?id='+this.current_nid).get().then((response)=>{
+					this.$http.get('/novel_add_love?id='+this.current_nid).then((response)=>{
 //						console.log(response)
 						return response.data
 					}).then((result) => {

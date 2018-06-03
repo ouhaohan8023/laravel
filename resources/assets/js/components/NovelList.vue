@@ -55,7 +55,7 @@
             }
         },
         mounted(){
-          Vue.resource('/novel_list?id=2').get().then((response) => {
+          this.$http.get('/novel_list?id=2').then((response) => {
   //							console.log(response)
             return response.data
           }).then((result) => {

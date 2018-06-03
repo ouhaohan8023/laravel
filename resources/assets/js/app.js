@@ -11,8 +11,10 @@ window.Vue = require('vue');
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueRouter from 'vue-router';
-import VueResource from 'vue-resource';
+//import VueResource from 'vue-resource';
 import '../font/iconfont.js';
+import axios from 'axios'
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -20,7 +22,7 @@ import '../font/iconfont.js';
  */
 Vue.use(ElementUI);
 Vue.use(VueRouter);
-Vue.use(VueResource);
+//Vue.use(VueResource);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('hello', require('./components/Hello.vue'));
@@ -37,6 +39,8 @@ import routes from './routes'
 const router = new VueRouter({
     routes
 })
+
+Vue.prototype.$http = axios;
 
 const app = new Vue({
     el: '#app',

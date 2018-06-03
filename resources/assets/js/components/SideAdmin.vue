@@ -41,6 +41,8 @@
                         <el-menu-item-group>
                             <template slot="title" v-if="ShowTitle">系统设置</template>
                             <router-link to="/"><el-menu-item index="2-1">常量设置</el-menu-item></router-link>
+                            <router-link to="/tagController"><el-menu-item index="2-2">标签设置</el-menu-item></router-link>
+
                             <!--<router-link to="/"><el-menu-item index="1-2">选项二</el-menu-item></router-link>-->
                         </el-menu-item-group>
                     </el-submenu>

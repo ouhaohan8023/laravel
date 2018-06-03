@@ -15,10 +15,11 @@
 
 #### 插件扩展：
 >1. [ElementUI](https://element.eleme.io/#/zh-CN)
->2. ~~基于[Editor.md](https://github.com/pandao/editor.md)改版的[laravel5-markdown-editor](https://github.com/ichenhua/laravel5-markdown-editor)~~ (弃用)
+>2. ~~基于[Editor.md](https://github.com/pandao/editor.md)改版的[laravel5-markdown-editor](https://github.com/ichenhua/laravel5-markdown-editor)~~ (2018-06-03弃用，改用mavonEditor)
 >3. [VueRouter](https://router.vuejs.org/zh/)
->4. VueResource
+>4. ~~VueResource~~(2018-06-04弃用,改用axios)
 >5. 基于[markdown-it](https://github.com/markdown-it/markdown-it)改版的[mavonEditor](https://github.com/hinesboy/mavonEditor)
+>6. [Axios](https://github.com/axios/axios)
 
 #### VPS：
 >1. [Vultr 日本节点 1核1G](https://www.vultr.com/?ref=7384945)
@@ -49,4 +50,3 @@
 >9. 列表页增加阅读量，点赞数
 >10. 记录点赞ip及时间
 >11. 分类增加修改功能
-

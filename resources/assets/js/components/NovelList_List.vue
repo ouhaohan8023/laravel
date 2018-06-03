@@ -83,7 +83,7 @@
               return urlStrArr[urlStrArr.length - 1]
             },
             LoadData(data) {
-              Vue.resource('/novel_list2?id='+data).get().then((response) => {
+              this.$http.get('/novel_list2?id='+data).then((response) => {
                 return response.data
               }).then((result) => {
                 this.list = this.list.concat(result.novel);

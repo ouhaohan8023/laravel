@@ -143,7 +143,8 @@
 			}
 		},
 		mounted(){
-			Vue.resource('/getLabel').get().then((response) => {
+
+			this.$http.get('/getLabel').then((response) => {
 				return response.data
 			}).then((result) => {
 				console.log('标签结果：', result)
@@ -160,7 +161,7 @@
 				this.checkListStr = '';
 				this.checkListStr = this.checkList.join();
 
-				Vue.http.post('/saveNovel', {
+				this.$http.post('/saveNovel', {
 					md: this.markdowntextarea,
 					html: this.htmlcode,
 					title: this.input5,

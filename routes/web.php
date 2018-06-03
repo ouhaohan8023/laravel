@@ -52,6 +52,10 @@
 
 	Route::get ('/getLabel' , 'HomeController@getLabel');
 
+//	系统管理
 	Route::get ('/sysIndex' , 'SysController@index');
+	Route::get ('/sys/tagsController' , 'SysController@tagsController');
+	Route::post ('/sys/tagsControllerAdd' , 'SysController@tagsControllerAdd');
+
 
 

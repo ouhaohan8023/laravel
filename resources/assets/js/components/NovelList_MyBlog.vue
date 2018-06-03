@@ -63,7 +63,9 @@
         },
         mounted(){
 //          console.log(userId);
-          Vue.resource('/novel_list_own').get().then((response) => {
+          this.$http.get('/novel_list_own', {
+
+          }).then((response) => {
   //							console.log(response)
             return response.data
           }).then((result) => {
