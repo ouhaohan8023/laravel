@@ -84,6 +84,8 @@
         })();
 	</script>
 
+	{{--友盟--}}
+	<script src="https://s13.cnzz.com/z_stat.php?id=1273865734&web_id=1273865734" language="JavaScript"></script>
 </head>
 <body>
 <div id="app">
