@@ -26,7 +26,7 @@
     <!-- Styles -->
     {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
     {{--md样式--}}
-    <link rel="stylesheet" href="/css/editormd.min.css">
+    <link rel="stylesheet" href="/css/markdown.css">
     <style>
         .el-aside{
             margin-top: 20px;

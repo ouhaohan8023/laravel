@@ -9,7 +9,7 @@
           <el-card class="box-card" shadow="always">
             <div slot="header" class="clearfix">
               <span><svg-icon :id="o.ic_icon"></svg-icon>{{o.n_mainname}}</span>
-              <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+              <!--<el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
             </div>
             {{o.n_overview}}
           </el-card>

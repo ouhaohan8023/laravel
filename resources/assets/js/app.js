@@ -31,6 +31,8 @@ Vue.component('novel', require('./components/Novel.vue'));
 Vue.component('novellist', require('./components/NovelList.vue'));
 Vue.component('novellist2', require('./components/NovelList_List.vue'));
 Vue.component('SvgIcon', require('./components/Svg.vue'));
+Vue.component('footers', require('./components/Footer.vue'));
+
 
 
 import routes from './routes'

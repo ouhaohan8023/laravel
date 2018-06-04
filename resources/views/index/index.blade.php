@@ -33,7 +33,7 @@
 	<link rel="manifest" href="/ico/site.webmanifest">
 
 	{{--md样式--}}
-	<link rel="stylesheet" href="/css/editormd.min.css">
+	<link rel="stylesheet" href="/css/markdown.css">
 
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
@@ -59,6 +59,7 @@
 			background-color: #efeeea;
 			margin-top:0;
 			font-family:Arial,'Times New Roman','Microsoft YaHei',SimHei;
+			height:100%;
 		}
 		.el-header{
 			position: fixed;
@@ -67,15 +68,19 @@
 		}
 		.contents{
 			margin-top: 50px;
+			min-height:100%;
 		}
 		.el-row{
 			width: 100%;
 		}
 		.el-footer {
-			background-color: #B3C0D1;
-			color: #333;
-			text-align: center;
-			line-height: 60px;
+			background-color: rgb(83, 92, 99);
+			color: #efeeea;
+			font-size: 13px;
+			/*position:absolute;*/
+			/*bottom: 0;*/
+			/*width: 100%;*/
+			/*right: 0;*/
 		}
 	</style>
 
@@ -89,13 +94,9 @@
             s.parentNode.insertBefore(hm, s);
         })();
 	</script>
-
-	{{--友盟--}}
-	{{--<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1273865734'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1273865734%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>--}}
 </head>
 <body>
 <div id="app">
-
 	<main class="py-4">
 		<el-container>
 			<el-header>
@@ -119,11 +120,10 @@
 					</el-col>
 				</el-row>
 			</el-container>
-			<el-footer>Footer</el-footer>
+			<el-footer>
+				<footers></footers>
+			</el-footer>
 		</el-container>
-		<div style="display: none">
-			<script src="https://s13.cnzz.com/z_stat.php?id=1273865734&web_id=1273865734" language="JavaScript"></script>
-		</div>
 		<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 			@csrf
 		</form>
@@ -150,8 +150,13 @@
 		isCollapse = true;
 		ShowTitle = true;
 	}
-
+	console.log('高度'+document.documentElement.clientHeight)
+	var dd = document.getElementsByClassName("contents")[0];
+	console.log(dd.clientHeight)
 
 </script>
+<div style="display: none">
+	<script src="https://s13.cnzz.com/z_stat.php?id=1273865734&web_id=1273865734" language="JavaScript"></script>
+</div>
 </body>
 </html>
