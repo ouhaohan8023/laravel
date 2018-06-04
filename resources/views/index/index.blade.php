@@ -144,6 +144,7 @@
 		isCollapse = true;
 		ShowTitle = true;
 	}
+	console.log(document.documentElement.clientHeight)
 
 
 </script>

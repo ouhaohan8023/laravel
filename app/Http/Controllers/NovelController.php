@@ -65,7 +65,14 @@ class NovelController extends Controller
         }else{
             $love = DB::table('la_novels')->where(['n_id'=>$id])->increment('n_love');
 
+//            $add['l_ip'] =
+//            DB::table('la_love_novel_ip')->insert();
             return $love;
         }
+    }
+
+    public function testIp()
+    {
+        Request::getClientIps();
     }
 }

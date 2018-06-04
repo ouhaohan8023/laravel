@@ -10,6 +10,8 @@
             <div slot="header" class="clearfix">
               <span><svg-icon :id="o.ic_icon"></svg-icon>{{o.n_mainname}}</span>
               <!--<el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
+              <div style="float: right; padding: 3px 0">点赞数:{{o.n_love}}</div>
+              <div style="float: right; padding: 3px 0">阅读量:{{o.n_read}}&nbsp;&nbsp;</div>
             </div>
             {{o.n_overview}}
           </el-card>
