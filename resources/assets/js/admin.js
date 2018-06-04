@@ -5,13 +5,13 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+// require('./bootstrap');
 
 window.Vue = require('vue');
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueRouter from 'vue-router';
-//import VueResource from 'vue-resource';
+//阿里矢量
 import '../font/iconfont.js';
 import axios from 'axios'
 /**
@@ -21,13 +21,10 @@ import axios from 'axios'
  */
 Vue.use(ElementUI);
 Vue.use(VueRouter);
-//Vue.use(VueResource);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('hello', require('./components/Hello.vue'));
 Vue.component('headbar', require('./components/Header.vue'));
 Vue.component('sideadmin', require('./components/SideAdmin.vue'));
-Vue.component('breadcrumb', require('./components/Breadcrumb.vue'));
+// Vue.component('breadcrumb', require('./components/Breadcrumb.vue'));
 Vue.component('novel', require('./components/Novel.vue'));
 Vue.component('novellist', require('./components/NovelList_MyBlog.vue'));
 Vue.component('SvgIcon', require('./components/Svg.vue'));

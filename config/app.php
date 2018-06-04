@@ -160,10 +160,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        /*
-         * MarkDown 文本编辑器
-         */
-        Chenhua\MarkdownEditor\MarkdownEditorServiceProvider::class,
     ],
 
     /*
