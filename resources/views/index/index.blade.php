@@ -71,6 +71,12 @@
 		.el-row{
 			width: 100%;
 		}
+		.el-footer {
+			background-color: #B3C0D1;
+			color: #333;
+			text-align: center;
+			line-height: 60px;
+		}
 	</style>
 
 	{{--百度站长--}}
@@ -113,6 +119,7 @@
 					</el-col>
 				</el-row>
 			</el-container>
+			<el-footer>Footer</el-footer>
 		</el-container>
 		<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 			@csrf
