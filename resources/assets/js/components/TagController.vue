@@ -84,42 +84,55 @@
 
 	},
 		methods: {
-			handleClose(tag) {
-//				console.log(tag)
-				this.tagsList.splice(this.tagsList.indexOf(tag), 1);
-			},
+				handleClose(tag) {
+	//				console.log(tag)
+            this.dothings(tag.t_name,2);
+            this.tagsList.splice(this.tagsList.indexOf(tag), 1);
+				},
+				showInput() {
+					this.inputVisible = true;
+					this.$nextTick(_ => {
+						this.$refs.saveTagInput.$refs.input.focus();
+				});
+				},
+				handleInputConfirm() {
+					let inputValue = this.inputValue;
+					var data = {};
+					data['t_id'] = ++this.num;
+					console.log(data['t_id'])
 
-			showInput() {
-				this.inputVisible = true;
-				this.$nextTick(_ => {
-					this.$refs.saveTagInput.$refs.input.focus();
-			});
-			},
+					data['t_name'] = inputValue;
+					data['t_u_id'] = this.uid;
+					if (inputValue) {
+						this.dothings(inputValue,1);
+						this.tagsList.push(data);
+					}
+					this.inputVisible = false;
+					this.inputValue = '';
+					console.log(this.tagsList)
+				},
+				dothings(inputValue,status) {
+					this.$http.post('/sys/tagsControllerAdd', {
+							t_name: inputValue,
+							t_status: status
+					}).then((response) => {
+							console.log(response)
+						if(response.data.code == 200){
 
-			handleInputConfirm() {
-				let inputValue = this.inputValue;
-				var data = {};
-				data['t_id'] = ++this.num;
-				console.log(data['t_id'])
-
-				data['t_name'] = inputValue;
-				data['t_u_id'] = this.uid;
-				if (inputValue) {
-					this.add(inputValue);
-					this.tagsList.push(data);
-				}
-				this.inputVisible = false;
-				this.inputValue = '';
-				console.log(this.tagsList)
-			},
-			add(inputValue) {
-				this.$http.post('/sys/tagsControllerAdd', {
-					t_name: inputValue
-				}).then((response) => {
-												console.log(response)
-//					return response.data
-				})
-			}
+						}else{
+						    console.log(response.data.code)
+								this.openDialog("操作失败");
+						}
+					})
+				},
+        openDialog(msg) {
+            this.$alert(msg, '提示', {
+                confirmButtonText: '确定',
+                callback: action => {
+                    // this.$router.push('/myBlog');
+                }
+            });
+        },
 		}
 
 	}

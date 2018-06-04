@@ -24,11 +24,9 @@ Vue.use(ElementUI);
 Vue.use(VueRouter);
 //Vue.use(VueResource);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('hello', require('./components/Hello.vue'));
 Vue.component('headbar', require('./components/Header.vue'));
 Vue.component('side', require('./components/Side.vue'));
-Vue.component('breadcrumb', require('./components/Breadcrumb.vue'));
+// Vue.component('breadcrumb', require('./components/Breadcrumb.vue'));
 Vue.component('novel', require('./components/Novel.vue'));
 Vue.component('novellist', require('./components/NovelList.vue'));
 Vue.component('novellist2', require('./components/NovelList_List.vue'));

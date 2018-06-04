@@ -46,7 +46,6 @@
     }
 </style>
 <script>
-    console.log(logOutUrl);
     export default {
         data() {
             return {
