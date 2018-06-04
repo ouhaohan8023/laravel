@@ -10,7 +10,7 @@
     </div>
 </template>
 <style>
-    .svgicon {
+    .footer .svgicon {
         margin-top: 5px;
         height: 50px;
         vertical-align: -0.15em;

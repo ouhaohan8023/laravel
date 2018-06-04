@@ -59,7 +59,6 @@
 			background-color: #efeeea;
 			margin-top:0;
 			font-family:Arial,'Times New Roman','Microsoft YaHei',SimHei;
-			height:100%;
 		}
 		.el-header{
 			position: fixed;
@@ -68,7 +67,6 @@
 		}
 		.contents{
 			margin-top: 50px;
-			min-height:100%;
 		}
 		.el-row{
 			width: 100%;
@@ -77,10 +75,6 @@
 			background-color: rgb(83, 92, 99);
 			color: #efeeea;
 			font-size: 13px;
-			/*position:absolute;*/
-			/*bottom: 0;*/
-			/*width: 100%;*/
-			/*right: 0;*/
 		}
 	</style>
 
@@ -150,9 +144,7 @@
 		isCollapse = true;
 		ShowTitle = true;
 	}
-	console.log('高度'+document.documentElement.clientHeight)
-	var dd = document.getElementsByClassName("contents")[0];
-	console.log(dd.clientHeight)
+
 
 </script>
 <div style="display: none">
