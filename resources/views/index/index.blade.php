@@ -150,5 +150,8 @@
 
 
 </script>
+<script>
+    $('#cnzz_stat_icon_1273865734').css('display','none')
+</script>
 </body>
 </html>
