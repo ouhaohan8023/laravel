@@ -55,7 +55,12 @@
 			transform: translateX(10px);
 			opacity: 0;
 		}
+		html{
+			min-height: 100%;
+		}
 		body{
+			height: 100%;
+			min-height: 1000px;
 			background-color: #efeeea;
 			margin-top:0;
 			font-family:Arial,'Times New Roman','Microsoft YaHei',SimHei;
@@ -76,6 +81,16 @@
 			color: #efeeea;
 			font-size: 13px;
 		}
+		footer{
+			height:60px;
+			position:fixed;
+			bottom:0;
+			left:0px;
+			width: 100%
+		}
+		main{
+			margin-bottom: 30px;
+		}
 	</style>
 
 	{{--百度站长--}}
@@ -91,12 +106,11 @@
 </head>
 <body>
 <div id="app">
-	<main class="py-4">
 		<el-container>
 			<el-header>
 				<headbar></headbar>
 			</el-header>
-			<el-container class="contents">
+			<el-main class="contents">
 				<el-row >
 					<el-col :span="4">
 						<el-aside width="">
@@ -113,7 +127,7 @@
 						</el-main>
 					</el-col>
 				</el-row>
-			</el-container>
+			</el-main>
 			<el-footer>
 				<footers></footers>
 			</el-footer>
@@ -121,7 +135,6 @@
 		<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 			@csrf
 		</form>
-	</main>
 </div>
 <script>
 	var User = "{{ Auth::user() }}";
