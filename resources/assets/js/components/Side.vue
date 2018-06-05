@@ -15,14 +15,15 @@
                 >
                     <el-submenu index="1">
                         <template slot="title">
-                            <i class="el-icon-location"></i>
+                            <i class="el-icon-more"></i>
                             <span>程序相关</span>
                         </template>
                         <el-menu-item-group>
                             <template slot="title" v-if="ShowTitle">程序相关</template>
                             <!--<router-link to="/"><el-menu-item index="1-1">PHP</el-menu-item></router-link>-->
-                            <a @click="ToList(2)"><el-menu-item index="1-1">PHP</el-menu-item></a>
-
+                            <a @click="ToList(2)"><el-menu-item index="1-1">后端</el-menu-item></a>
+                            <a @click="ToList(5)"><el-menu-item index="1-2">前端</el-menu-item></a>
+                            <a @click="ToList(6)"><el-menu-item index="1-3">SSR</el-menu-item></a>
                             <!--<router-link to="/"><el-menu-item index="1-2">选项二</el-menu-item></router-link>-->
                         </el-menu-item-group>
                         <!--<el-menu-item-group title="分组2">-->
@@ -35,7 +36,7 @@
                     </el-submenu>
                     <el-submenu index="2">
                         <template slot="title">
-                            <i class="el-icon-location"></i>
+                            <i class="el-icon-more"></i>
                             <span>浮生杂谈</span>
                         </template>
                         <el-menu-item-group>
