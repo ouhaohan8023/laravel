@@ -21,6 +21,7 @@
                         <el-menu-item-group>
                             <template slot="title" v-if="ShowTitle">程序相关</template>
                             <!--<router-link to="/"><el-menu-item index="1-1">PHP</el-menu-item></router-link>-->
+                            <a @click="ToList(0)"><el-menu-item index="1-4">全部</el-menu-item></a>
                             <a @click="ToList(2)"><el-menu-item index="1-1">后端</el-menu-item></a>
                             <a @click="ToList(5)"><el-menu-item index="1-2">前端</el-menu-item></a>
                             <a @click="ToList(6)"><el-menu-item index="1-3">SSR</el-menu-item></a>
@@ -78,8 +79,31 @@
         data() {
             return {
                 isCollapse: isCollapse,
-                ShowTitle: ShowTitle
+                ShowTitle: ShowTitle,
+                menu1: [],
+                menu2: [],
             }
+        },
+        mounted(){
+            this.$http.get('/novel_detail?id='+this.current_nid).then((response) => {
+                //							console.log(response)
+                return response.data
+            }).then((result) => {
+                console.log('名字:'+result.novel.name);
+            this.writer = result.novel.name;
+            this.loading = false;
+            this.maintitle = result.novel.n_mainname;
+            this.subtitle = result.novel.n_subtitle;
+            this.contents = "<div>"+result.novel.n_content+"</div>";
+            this.tagsList = this.tagsList.concat(result.tags);
+            this.love = result.novel.n_love;
+            this.read = result.novel.n_read;
+            this.novelTime = "创建于:"+result.novel.n_buildtime;
+            if(result.novel.n_buildtime != result.novel.n_changetime){
+                this.changeTime = "更新于:"+result.novel.n_changetime;
+            }
+            console.log('返回数据结果：', result)
+        });
         },
         methods: {
             handleOpen(key, keyPath) {
@@ -91,7 +115,11 @@
             ToList(data) {
 //                console.log(data)
                 // 命名的路由
-                this.$router.push({ name: 'NovelList2', params: { id: data }})
+                if(data == 0){
+                    this.$router.push({ name: 'NovelList'})
+                }else{
+                    this.$router.push({ name: 'NovelList2', params: { id: data }})
+                }
 //                this.$router.go(0)
             }
         },

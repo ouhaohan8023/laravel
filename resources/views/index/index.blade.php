@@ -95,69 +95,69 @@
 
 	{{--百度站长--}}
 	<script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?c0d98d5457659db7c058b39cdf2d03d7";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?c0d98d5457659db7c058b39cdf2d03d7";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
 	</script>
 </head>
 <body>
 <div id="app">
-		<el-container>
-			<el-header>
-				<headbar></headbar>
-			</el-header>
-			<el-main class="contents">
-				<el-row >
-					<el-col :span="4">
-						<el-aside width="">
-							<side></side>
-						</el-aside>
-					</el-col>
-					<el-col :span="20">
-						<el-main>
-							{{--<breadcrumb></breadcrumb>--}}
-							{{--<novel></novel>--}}
-							<transition name="component-fade" mode="out-in">
-								<router-view></router-view>
-							</transition>
-						</el-main>
-					</el-col>
-				</el-row>
-			</el-main>
-			<el-footer>
-				<footers></footers>
-			</el-footer>
-		</el-container>
-		<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-			@csrf
-		</form>
+	<el-container>
+		<el-header>
+			<headbar></headbar>
+		</el-header>
+		<el-main class="contents">
+			<el-row >
+				<el-col :span="4">
+					<el-aside width="">
+						<side></side>
+					</el-aside>
+				</el-col>
+				<el-col :span="20">
+					<el-main>
+						{{--<breadcrumb></breadcrumb>--}}
+						{{--<novel></novel>--}}
+						<transition name="component-fade" mode="out-in">
+							<router-view></router-view>
+						</transition>
+					</el-main>
+				</el-col>
+			</el-row>
+		</el-main>
+		<el-footer>
+			<footers></footers>
+		</el-footer>
+	</el-container>
+	<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+		@csrf
+	</form>
 </div>
 <script>
 	var User = "{{ Auth::user() }}";
 	var Logo = "{{ config('app.logo') }}";
 	var isLogin = true;
-	@guest
-		var userName = "游客";
+			@guest
+	var userName = "游客";
 	@else
-		isLogin = false;
-		userName = "{{ Auth::user()->name }}";
-	@endguest
-    var logOutUrl = '{{ route('logout') }}'
+			isLogin = false;
+	userName = "{{ Auth::user()->name }}";
+			@endguest
+	var logOutUrl = '{{ route('logout') }}'
 	var RegisterUrl = '{{ route('register') }}'
 	var LoginUrl = '{{ route('login') }}'
 	var isCollapse = false;
 	var ShowTitle = false;
-//	console.log(document.body.clientWidth)
+	//	console.log(document.body.clientWidth)
 	ScreenWidth = document.body.clientWidth;
 	if(ScreenWidth <= 764){
 		isCollapse = true;
 		ShowTitle = true;
 	}
-	console.log(document.documentElement.clientHeight)
+//	console.log(document.documentElement.clientHeight)
 
 
 </script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -26,8 +27,10 @@ class IndexController extends Controller
         return view('index/index');
     }
 
-//    public function mdVue()
-//    {
-//        return view('home/66markDown');
-//    }
+    public function getSideMenu()
+    {
+        $data['menu1'] = DB::table('la_classify')->where('c_pid','=',1)->get();
+        $data['menu2'] = DB::table('la_classify')->where('c_pid','=',2)->get();
+        return $data;
+    }
 }

@@ -7,6 +7,7 @@ import NovelList2 from './components/NovelList_List.vue'
 const routes = [
     {
         path: '/',
+        name: 'NovelList',
         component: NovelList
     },
     {

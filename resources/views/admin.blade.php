@@ -42,9 +42,25 @@
             transform: translateX(10px);
             opacity: 0;
         }
+        html{
+            min-height: 100%;
+        }
         body{
+            height: 100%;
+            min-height: 1000px;
             background-color: #efeeea;
             margin-top:0;
+            font-family:Arial,'Times New Roman','Microsoft YaHei',SimHei;
+        }
+        footer{
+            height:60px;
+            position:fixed;
+            bottom:0;
+            left:0px;
+            width: 100%
+        }
+        main{
+            margin-bottom: 30px;
         }
         .el-header{
             position: fixed;
@@ -61,35 +77,32 @@
 </head>
 <body>
 <div id="app">
-
-    <main class="py-4">
-        <el-container>
-            <el-header>
-                <headbar></headbar>
-            </el-header>
-            <el-container class="contents">
-                <el-row >
-                    <el-col :span="4">
-                        <el-aside width="">
-                            <sideadmin></sideadmin>
-                        </el-aside>
-                    </el-col>
-                    <el-col :span="20">
-                        <el-main>
-                            {{--<breadcrumb></breadcrumb>--}}
-                            {{--<novel></novel>--}}
-                            <transition name="component-fade" mode="out-in">
-                                <router-view></router-view>
-                            </transition>
-                        </el-main>
-                    </el-col>
-                </el-row>
-            </el-container>
+    <el-container>
+        <el-header>
+            <headbar></headbar>
+        </el-header>
+        <el-container class="contents">
+            <el-row >
+                <el-col :span="4">
+                    <el-aside width="">
+                        <sideadmin></sideadmin>
+                    </el-aside>
+                </el-col>
+                <el-col :span="20">
+                    <el-main>
+                        {{--<breadcrumb></breadcrumb>--}}
+                        {{--<novel></novel>--}}
+                        <transition name="component-fade" mode="out-in">
+                            <router-view></router-view>
+                        </transition>
+                    </el-main>
+                </el-col>
+            </el-row>
         </el-container>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
-    </main>
+    </el-container>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
 </div>
 
 <script>
