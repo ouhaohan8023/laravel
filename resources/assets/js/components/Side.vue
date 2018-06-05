@@ -65,7 +65,7 @@
     .el-submenu .el-menu-item{
         min-width:0
     }
-    a {
+    .el-menu-vertical-demo a {
         text-decoration: none;
         color: rgb(255, 255, 255);
     }
