@@ -91,20 +91,52 @@
 		main{
 			margin-bottom: 30px;
 		}
-	</style>
+		#loading{
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			background-color: #f54;
+			z-index: 200;
+			text-align: center;
 
-	{{--百度站长--}}
-	<script>
-		var _hmt = _hmt || [];
-		(function() {
-			var hm = document.createElement("script");
-			hm.src = "https://hm.baidu.com/hm.js?c0d98d5457659db7c058b39cdf2d03d7";
-			var s = document.getElementsByTagName("script")[0];
-			s.parentNode.insertBefore(hm, s);
-		})();
-	</script>
+		}
+		#loading h1{
+			font-size: 4rem;
+			line-height: 5rem;
+			color: #fff;
+			font-family: 'Helvetica Neue', Helvetica, sans-serif;
+			margin-bottom: 0;
+		}
+		#loading p{
+			font-size: 1rem;
+
+		}
+		.tableohh {
+			display: table;
+			width: 100%;
+		}
+		#loading .table-cell {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		#loading .small {
+			font-size: 1rem;
+			line-height: 1.5rem;
+
+			font-family: Arial,'Times New Roman','Microsoft YaHei',SimHei;
+			color: #fff;
+		}
+
+	</style>
 </head>
 <body>
+<div id="loading" class="tableohh">
+	<div class="table-cell">
+		<img src="/img/loading-bubbles.svg" width="64" height="64" />
+		<h1 class="h1 mt2 mb0">Loading...</h1>
+		<p class="small mb2">Crossing The Great Firewall of China</p>
+	</div>
+</div>
 <div id="app">
 	<el-container>
 		<el-header>
@@ -158,8 +190,13 @@
 		ShowTitle = true;
 	}
 //	console.log(document.documentElement.clientHeight)
-
-
+</script>
+<script>
+	{{--关闭加载动画--}}
+	document.addEventListener('DOMContentLoaded', function() {
+		var id = document.getElementById("loading");
+		id.style.display = "none";
+	});
 </script>
 <div style="display: none">
 	<script src="https://s13.cnzz.com/z_stat.php?id=1273865734&web_id=1273865734" language="JavaScript"></script>
