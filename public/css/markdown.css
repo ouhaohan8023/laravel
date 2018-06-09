@@ -507,19 +507,41 @@ a.md-toc-inner {
 	background: transparent;
 }
 pre {
-	display: block;
-	padding: 1rem;
-	margin: 1rem 0;
-	font-size: 1.3rem;
-	line-height: 1.6;
+	/*display: block;*/
+	/*padding: 1rem;*/
+	/*margin: 1rem 0;*/
+	/*font-size: 1.3rem;*/
+	/*line-height: 1.6;*/
+	/*word-break: break-all;*/
+	/*word-wrap: break-word;*/
+	/*color: #555;*/
+	/*background-color: #f8f8f8;*/
+	/*border: 1px solid #dedede;*/
+	/*border-radius: 0;*/
+	background-color: #282828;
+	color: #839496;
+	border: 1px solid #1e1e1e;
+	margin-bottom: 20px;
+	padding: 15px;
+	font-size: 13px;
+	word-wrap: normal;
+	/*word-break: break-word!important;*/
 	word-break: break-all;
-	word-wrap: break-word;
-	color: #555;
-	background-color: #f8f8f8;
-	border: 1px solid #dedede;
-	border-radius: 0;
+	white-space: pre;
+	overflow: auto;
+	border-radius: 4px;
 }
 code{
+	background-color: #282828;
+	padding: 2px 4px;
+	border: none;
+	font-size: 12px;
+	white-space: pre-wrap;
+	vertical-align: middle;
+	border-radius: 4px;
+	color: #98c379;
+}
+pre code{
 	font-size: 87.5%;
 	color: #e83e8c;
 	word-break: break-word;
@@ -542,6 +564,9 @@ code{
 }
 .editormd-preview-container h6{
 	font-size: 14px;
+}
+.editormd-preview-container img{
+	max-width: 800px;
 }
 /*.file-node-icon.fa.fa-folder:before {
   content: "\f114";
