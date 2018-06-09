@@ -507,17 +507,6 @@ a.md-toc-inner {
 	background: transparent;
 }
 pre {
-	/*display: block;*/
-	/*padding: 1rem;*/
-	/*margin: 1rem 0;*/
-	/*font-size: 1.3rem;*/
-	/*line-height: 1.6;*/
-	/*word-break: break-all;*/
-	/*word-wrap: break-word;*/
-	/*color: #555;*/
-	/*background-color: #f8f8f8;*/
-	/*border: 1px solid #dedede;*/
-	/*border-radius: 0;*/
 	background-color: #282828;
 	color: #839496;
 	border: 1px solid #1e1e1e;
