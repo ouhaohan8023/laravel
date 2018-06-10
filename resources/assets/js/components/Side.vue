@@ -84,27 +84,6 @@
                 menu2: [],
             }
         },
-        mounted(){
-            this.$http.get('/novel_detail?id='+this.current_nid).then((response) => {
-                //							console.log(response)
-                return response.data
-            }).then((result) => {
-                console.log('名字:'+result.novel.name);
-            this.writer = result.novel.name;
-            this.loading = false;
-            this.maintitle = result.novel.n_mainname;
-            this.subtitle = result.novel.n_subtitle;
-            this.contents = "<div>"+result.novel.n_content+"</div>";
-            this.tagsList = this.tagsList.concat(result.tags);
-            this.love = result.novel.n_love;
-            this.read = result.novel.n_read;
-            this.novelTime = "创建于:"+result.novel.n_buildtime;
-            if(result.novel.n_buildtime != result.novel.n_changetime){
-                this.changeTime = "更新于:"+result.novel.n_changetime;
-            }
-            console.log('返回数据结果：', result)
-        });
-        },
         methods: {
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
