@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,6 +27,17 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->call(function () {
+            $data = DB::table('la_love_novel_ip')->where('l_done','=',0)->get();
+            foreach($data as $k => $v){
+                $addr = getCity($v->l_ip);
+                //                $add['l_id'] = $v['l_id'];
+                $add['l_c'] = $addr['country'];
+                $add['l_p'] = $addr['region'];
+                $add['l_city'] = $addr['city'];
+                DB::table('la_love_novel_ip')->where('l_id','=',$v->l_id)->update($add);
+            }
+        })->everyMinute();
     }
 
     /**
