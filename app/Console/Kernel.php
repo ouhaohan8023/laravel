@@ -35,9 +35,10 @@ class Kernel extends ConsoleKernel
                 $add['l_c'] = $addr['country'];
                 $add['l_p'] = $addr['region'];
                 $add['l_city'] = $addr['city'];
+                $add['l_done'] = 1;
                 DB::table('la_love_novel_ip')->where('l_id','=',$v->l_id)->update($add);
             }
-        })->everyMinute();
+        })->daily();
     }
 
     /**
