@@ -151,12 +151,12 @@
 				addLove: function (event) {
 //					console.log(this.current_nid);
 					this.love = this.love + 1;
+					this.love_btn = true
 					this.$http.get('/novel_add_love?id='+this.current_nid).then((response)=>{
 //						console.log(response)
 						return response.data
 					}).then((result) => {
 						if(result == 1){
-							this.love_btn = true
 							this.love_word = '谢谢支持 ^_^ '
 						}
 				});

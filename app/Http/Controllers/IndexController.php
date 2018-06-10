@@ -33,4 +33,11 @@ class IndexController extends Controller
         $data['menu2'] = DB::table('la_classify')->where('c_pid','=',2)->get();
         return $data;
     }
+
+    public function test()
+    {
+        $addr = getCity('101.78.3.131');
+        var_dump($addr);
+        die;
+    }
 }

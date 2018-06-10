@@ -38,3 +38,7 @@
 	Route::get ('/novel_list2' , 'NovelController@indexList');//首页---部分文章列表
 	Route::get ('/novel_detail' , 'NovelController@detail');//文章内容
 	Route::get ('/novel_add_love' , 'NovelController@addLove');//文章点赞
+
+
+//测试
+	Route::get ('/test', 'IndexController@test');//测试

@@ -70,7 +70,8 @@ class NovelController extends Controller
             $add['l_time'] = date('Y-m-d H:i:s');
             $address = getCity($add['l_ip']);
             $add['l_c'] = $address['country'];
-            $add['l_p'] = $address['city'];
+            $add['l_p'] = $address['region'];
+            $add['l_city'] = $address['city'];
             DB::table('la_love_novel_ip')->insert($add);
             return $love;
         }
