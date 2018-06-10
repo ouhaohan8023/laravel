@@ -58,15 +58,20 @@ class NovelController extends Controller
     }
 
     //点赞
-    public function addLove(){
+    public function addLove(Request $request){
         $id = isset($_GET['id'])?$_GET['id']:null;
         if($id==null||empty($id)){
             return 404;
         }else{
             $love = DB::table('la_novels')->where(['n_id'=>$id])->increment('n_love');
 
-//            $add['l_ip'] =
-//            DB::table('la_love_novel_ip')->insert();
+            $add['l_ip'] = $request->getClientIp();
+            $add['l_n_id'] = $id;
+            $add['l_time'] = date('Y-m-d H:i:s');
+            $address = getCity($add['l_ip']);
+            $add['l_c'] = $address['country'];
+            $add['l_p'] = $address['city'];
+            DB::table('la_love_novel_ip')->insert($add);
             return $love;
         }
     }
