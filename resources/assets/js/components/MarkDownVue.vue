@@ -103,14 +103,12 @@
 	}
 </style>
 <script>
-	// Local Registration
 	import { mavonEditor } from 'mavon-editor'
 	import 'mavon-editor/dist/css/index.css'
 	export default {
 		name: 'editor',
 		components: {
 			mavonEditor
-			// or 'mavon-editor': mavonEditor
 		},
 		data() {
 			return {
@@ -119,27 +117,11 @@
 				checkList: [],
 				checkListStr: '',
 				items: [],
-				options: [
-					{
-						value: '1',
-						label: '程序相关',
-						children: [{
-							value: '2',
-							label: 'PHP',
-						}]
-					},
-					{
-						value: '3',
-						label: '浮生杂谈',
-						children: [{
-							value: '4',
-							label: '2018年6月',
-						}]
-					}],
-				selectedOptions3: ['3', '4'],
+				options: [],
 				textarea2: '',
 				htmlcode: '',
-				markdowntextarea: ''
+				markdowntextarea: '',
+				selectedOptions3: [],
 			}
 		},
 		mounted(){
@@ -150,6 +132,13 @@
 				console.log('标签结果：', result)
 				this.items = this.items.concat(result);
 			});
+			this.$http.get('/markDownClassify').then((response) => {
+				return response.data
+			}).then((result) => {
+				console.log(this.options)
+				console.log(result);
+				this.options = result;
+		});
 		},
 		methods: {
 			editorChange (value, render) {

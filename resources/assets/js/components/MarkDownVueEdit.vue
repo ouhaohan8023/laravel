@@ -119,24 +119,8 @@
 				checkList: [],
 				checkListStr: '',
 				items: [],
-				options: [
-					{
-						value: '1',
-						label: '程序相关',
-						children: [{
-							value: '2',
-							label: 'PHP',
-						}]
-					},
-					{
-						value: '3',
-						label: '浮生杂谈',
-						children: [{
-							value: '4',
-							label: '2018年6月',
-						}]
-					}],
-				selectedOptions3: ['3', '4'],
+				options: [],
+				selectedOptions3: [],
 				textarea2: '',
 				htmlcode: '',
 				markdowntextarea: '',
@@ -152,6 +136,14 @@
 				console.log('标签结果：', result)
 				this.items = this.items.concat(result);
 			});
+			//分类
+			this.$http.get('/markDownClassify').then((response) => {
+				return response.data
+			}).then((result) => {
+				console.log(this.options)
+			console.log(result);
+			this.options = result;
+		});
 			//文章内容
 			this.current_nid = this.$route.query.id;
 			this.$http.get('/novel_detail?id='+this.current_nid).then((response) => {
@@ -173,14 +165,16 @@
 			this.htmlcode = result.novel.n_content;
 
 			var one = result.novel.n_one
-			var one = one.toString();
+//			var one = one.toString();
 			var two = result.novel.n_two;
-			var two = two.toString();
+//			var two = two.toString();
 			this.selectedOptions3 = [one,two];
 			console.log(this.selectedOptions3);
 			this.textarea2 = result.novel.n_overview;
 			console.log('返回数据结果:',result)
 			});
+
+
 		},
 		methods: {
 			editorChange (value, render) {

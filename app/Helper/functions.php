@@ -35,3 +35,34 @@
 		$data = (array)$ip->data;
 		return $data;
 	}
+
+	//树状结构
+	function getTree($data, $pId,$id,$pid)
+	{
+		$tree = [];
+		unset($data[0]);//忽略根目录，不然会陷入死循环
+		foreach($data as $k => $v)
+		{
+			if($v->$pid == $pId)
+			{         //父亲找到儿子
+				$v->$pid = getTree($data, $v->$id,$id,$pid);
+				$tree[] = (array)$v;
+			}
+		}
+		return $tree;
+	}
+
+	//将树状结构组装
+	function makeJson($tree){
+		$arr = [];
+		foreach($tree as $k => $v){
+			$data['value'] = $v['c_id'];
+			$data['label'] = $v['c_name'];
+			$data['children'] = makeJson($v['c_pid']);
+			if(empty($data['children'])){
+				unset($data['children']);
+			}
+			$arr[] = $data;
+		}
+		return $arr;
+	}

@@ -134,4 +134,18 @@ class HomeController extends Controller
 
     }
 
+    /**
+     * MarkDown页面获取分类并组装
+     */
+    public function markDownClassify()
+    {
+        $data = DB::table('la_classify')->get();
+        $id = 'c_id';
+        $pid = 'c_pid';
+        $tree = getTree($data, 0,$id,$pid);
+        return makeJson($tree);
+
+
+    }
+
 }

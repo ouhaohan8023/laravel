@@ -146,7 +146,8 @@
 			<el-row >
 				<el-col :span="4">
 					<el-aside width="">
-						<side></side>
+						{{--{{$menu->menu1}}--}}
+						<side v-bind:menu1="{{$menu['menu1']}}" v-bind:menu2="{{$menu['menu2']}}"></side>
 					</el-aside>
 				</el-col>
 				<el-col :span="20">

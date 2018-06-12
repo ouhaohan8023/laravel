@@ -24,27 +24,19 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return view('index/index');
-    }
-
-    public function getSideMenu()
-    {
         $data['menu1'] = DB::table('la_classify')->where('c_pid','=',1)->get();
         $data['menu2'] = DB::table('la_classify')->where('c_pid','=',2)->get();
-        return $data;
+//        return $data;
+//        var_dump($data);die;
+        return view('index/index',['menu'=>$data]);
     }
 
     public function test()
     {
-        $data = DB::table('la_love_novel_ip')->where('l_done','=',0)->get();
-        foreach($data as $k => $v){
-            $addr = getCity($v->l_ip);
-            //                $add['l_id'] = $v['l_id'];
-            $add['l_c'] = $addr['country'];
-            $add['l_p'] = $addr['region'];
-            $add['l_city'] = $addr['city'];
-            DB::table('la_love_novel_ip')->where('l_id','=',$v->l_id)->update($add);
-        }
-        die;
+        $data = DB::table('la_classify')->get();
+        $id = 'c_id';
+        $pid = 'c_pid';
+        $tree = getTree($data, 0,$id,$pid);
+        return makeJson($tree);
     }
 }

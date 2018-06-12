@@ -20,20 +20,9 @@
                         </template>
                         <el-menu-item-group>
                             <template slot="title" v-if="ShowTitle">程序相关</template>
-                            <!--<router-link to="/"><el-menu-item index="1-1">PHP</el-menu-item></router-link>-->
                             <a @click="ToList(0)"><el-menu-item index="1-4">全部</el-menu-item></a>
-                            <a @click="ToList(2)"><el-menu-item index="1-1">后端</el-menu-item></a>
-                            <a @click="ToList(5)"><el-menu-item index="1-2">前端</el-menu-item></a>
-                            <a @click="ToList(6)"><el-menu-item index="1-3">SSR</el-menu-item></a>
-                            <!--<router-link to="/"><el-menu-item index="1-2">选项二</el-menu-item></router-link>-->
+                            <a v-for="item in menu1" @click="ToList(item.c_id)"><el-menu-item :index=item.c_router>{{item.c_name}}</el-menu-item></a>
                         </el-menu-item-group>
-                        <!--<el-menu-item-group title="分组2">-->
-                            <!--<el-menu-item index="1-3">选项3</el-menu-item>-->
-                        <!--</el-menu-item-group>-->
-                        <!--<el-submenu index="1-4">-->
-                            <!--<template slot="title">选项4</template>-->
-                            <!--<el-menu-item index="1-4-1">选项1</el-menu-item>-->
-                        <!--</el-submenu>-->
                     </el-submenu>
                     <el-submenu index="2">
                         <template slot="title">
@@ -42,20 +31,9 @@
                         </template>
                         <el-menu-item-group>
                             <template slot="title" v-if="ShowTitle">浮生杂谈</template>
-                            <!--<router-link :to="{path:'/list',query: {lid: 4}}"><el-menu-item index="2-1">2018年</el-menu-item></router-link>-->
-                            <a @click="ToList(4)"><el-menu-item index="2-1">2018年</el-menu-item></a>
-
-                            <!--<router-link to="/"><el-menu-item index="1-2">选项二</el-menu-item></router-link>-->
+                            <a v-for="item2 in menu2" @click="ToList(item2.c_id)"><el-menu-item :index=item2.c_router>{{item2.c_name}}</el-menu-item></a>
                         </el-menu-item-group>
                     </el-submenu>
-                    <!--<el-menu-item index="3" disabled>-->
-                        <!--<i class="el-icon-document"></i>-->
-                        <!--<span slot="title">导航三</span>-->
-                    <!--</el-menu-item>-->
-                    <!--<el-menu-item index="4">-->
-                        <!--<i class="el-icon-setting"></i>-->
-                        <!--<span slot="title">导航四</span>-->
-                    <!--</el-menu-item>-->
                 </el-menu>
             </el-col>
         </el-row>
@@ -75,13 +53,11 @@
 </style>
 <script>
     export default {
-//        props:['isCollapse'];
+        props:['menu1','menu2'],
         data() {
             return {
                 isCollapse: isCollapse,
                 ShowTitle: ShowTitle,
-                menu1: [],
-                menu2: [],
             }
         },
         methods: {
