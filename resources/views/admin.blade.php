@@ -85,7 +85,7 @@
             <el-row >
                 <el-col :span="4">
                     <el-aside width="">
-                        <sideadmin></sideadmin>
+                        <sideadmin v-bind:menu="{{$menu}}"></sideadmin>
                     </el-aside>
                 </el-col>
                 <el-col :span="20">

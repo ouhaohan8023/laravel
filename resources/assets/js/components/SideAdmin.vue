@@ -4,7 +4,7 @@
         <el-row class="tac">
             <el-col :span="24">
                 <el-menu
-                  default-active="1-1"
+                  default-active="1-3"
                   class="el-menu-vertical-demo"
                   @open="handleOpen"
                   @close="handleClose"
@@ -14,46 +14,16 @@
                   active-text-color="#ffd04b"
                   :collapse="isCollapse"
                 >
-                    <el-submenu index="1">
+                    <el-submenu v-for="(a,ak) in menu" :key="ak" :index="a.m_routers">
                         <template slot="title">
                             <i class="el-icon-location"></i>
-                            <span>我的博客</span>
+                            <span>{{a.m_name}}</span>
                         </template>
                         <el-menu-item-group>
-                            <template slot="title" v-if="ShowTitle">我的博客</template>
-                            <!--<router-link to="/markDown"><el-menu-item index="1-1">发表博客</el-menu-item></router-link>-->
-                            <router-link to="/markDownVue"><el-menu-item index="1-2">发表博客</el-menu-item></router-link>
-                            <router-link to="/myBlog"><el-menu-item index="1-3">博客列表</el-menu-item></router-link>
-                        </el-menu-item-group>
-                        <!--<el-menu-item-group title="分组2">-->
-                            <!--<el-menu-item index="1-3">选项3</el-menu-item>-->
-                        <!--</el-menu-item-group>-->
-                        <!--<el-submenu index="1-4">-->
-                            <!--<template slot="title">选项4</template>-->
-                            <!--<el-menu-item index="1-4-1">选项1</el-menu-item>-->
-                        <!--</el-submenu>-->
-                    </el-submenu>
-                    <el-submenu index="2">
-                        <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>系统设置</span>
-                        </template>
-                        <el-menu-item-group>
-                            <template slot="title" v-if="ShowTitle">系统设置</template>
-                            <router-link to="/"><el-menu-item index="2-1">常量设置</el-menu-item></router-link>
-                            <router-link to="/tagController"><el-menu-item index="2-2">标签设置</el-menu-item></router-link>
-
-                            <!--<router-link to="/"><el-menu-item index="1-2">选项二</el-menu-item></router-link>-->
+                            <template slot="title" v-if="ShowTitle">{{a.m_name}}</template>
+                            <router-link v-for="(b,bk) in a.m_pid" :key="bk" :to=b.m_route><el-menu-item :index=b.m_routers>{{b.m_name}}</el-menu-item></router-link>
                         </el-menu-item-group>
                     </el-submenu>
-                    <!--<el-menu-item index="3" disabled>-->
-                        <!--<i class="el-icon-document"></i>-->
-                        <!--<span slot="title">导航三</span>-->
-                    <!--</el-menu-item>-->
-                    <!--<el-menu-item index="4">-->
-                        <!--<i class="el-icon-setting"></i>-->
-                        <!--<span slot="title">导航四</span>-->
-                    <!--</el-menu-item>-->
                 </el-menu>
             </el-col>
         </el-row>
@@ -73,7 +43,7 @@
 </style>
 <script>
     export default {
-//        props:['isCollapse'];
+        props:['menu'],
         data() {
             return {
                 isCollapse: isCollapse,

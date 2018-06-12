@@ -31,7 +31,12 @@ class HomeController extends Controller
 
     public function admin()
     {
-        return view('admin');
+        $data = DB::table('la_menu')->get();
+        $id = 'm_id';
+        $pid = 'm_pid';
+        $tree = getTree($data, 0,$id,$pid);
+//        var_dump($tree);die;
+        return view('admin',['menu'=>json_encode($tree)]);
     }
     //写一篇博客
     public function writeNovel()

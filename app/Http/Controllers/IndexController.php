@@ -26,17 +26,16 @@ class IndexController extends Controller
     {
         $data['menu1'] = DB::table('la_classify')->where('c_pid','=',1)->get();
         $data['menu2'] = DB::table('la_classify')->where('c_pid','=',2)->get();
-//        return $data;
-//        var_dump($data);die;
         return view('index/index',['menu'=>$data]);
     }
 
     public function test()
     {
-        $data = DB::table('la_classify')->get();
-        $id = 'c_id';
-        $pid = 'c_pid';
+        $data = DB::table('la_menu')->get();
+        $id = 'm_id';
+        $pid = 'm_pid';
         $tree = getTree($data, 0,$id,$pid);
-        return makeJson($tree);
+        return $tree;
+        return view('home',['menu',$tree]);
     }
 }

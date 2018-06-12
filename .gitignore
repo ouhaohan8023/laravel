@@ -12,3 +12,5 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .env
+/public/js/admin.js
+/public/js/app.js
