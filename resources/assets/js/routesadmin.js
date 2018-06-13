@@ -3,6 +3,8 @@ import NovelList from './components/NovelList_MyBlog.vue'
 import MarkDownVueEdit from './components/MarkDownVueEdit.vue'
 import MarkDownVue from './components/MarkDownVue.vue'
 import TagController from './components/TagController.vue'
+import Menu from './components/Menu.vue'
+
 
 const routes = [
     {
@@ -28,6 +30,10 @@ const routes = [
     {
         path: '/tagController',
         component: TagController
+    },
+    {
+        path: '/menu',
+        component: Menu
     }
 ]
 

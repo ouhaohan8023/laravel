@@ -21,7 +21,7 @@
 
 	<!-- Scripts -->
 	<script src="{{ asset('js/app.js') }}" defer></script>
-
+	<script src="{{ asset('js/extra/smoothscroll.js') }}"></script>
 	<!-- Fonts -->
 	<link rel="dns-prefetch" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
@@ -126,6 +126,18 @@
 			font-family: Arial,'Times New Roman','Microsoft YaHei',SimHei;
 			color: #fff;
 		}
+		#backToTop{
+			position: fixed;
+			bottom: -150px;
+			left: -150px;
+			width: 150px;
+			z-index: 10000;
+			transition: all 0.3s;
+		}
+		#app #backToTop:hover{
+			left: 0 !important;
+			bottom: 0 !important;
+		}
 
 	</style>
 </head>
@@ -160,6 +172,7 @@
 					</el-main>
 				</el-col>
 			</el-row>
+			<img id="backToTop" src="/img/kotori.png" onclick="backToTop()"/>
 		</el-main>
 		<el-footer>
 			<footers></footers>
@@ -198,6 +211,28 @@
 		var id = document.getElementById("loading");
 		id.style.display = "none";
 	});
+	var show = 0;
+	window.onscroll = function() {
+		//为了保证兼容性，这里取两个值，哪个有值取哪一个
+		//scrollTop就是触发滚轮事件时滚轮的高度
+		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+//		console.log("滚动距离" + scrollTop);
+		if(scrollTop>200 && show == 0){
+			show = 1;
+//			console.log('是时候了！')
+			document.getElementById('backToTop').style.left="-30px"
+			document.getElementById('backToTop').style.bottom="-30px"
+		}else if(scrollTop < 200 && show == 1){
+			show = 0;
+			document.getElementById('backToTop').style.left="-150px"
+			document.getElementById('backToTop').style.bottom="-150px"
+//			console.log('撤')
+		}
+	}
+	function backToTop(){
+		window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+	}
+
 </script>
 <div style="display: none">
 	<script src="https://s13.cnzz.com/z_stat.php?id=1273865734&web_id=1273865734" language="JavaScript"></script>
