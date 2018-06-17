@@ -11655,6 +11655,115 @@ function toComment(sourceMap) {
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11846,115 +11955,6 @@ function setStyle(element, styleName, value) {
     }
   }
 };
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
 
 /***/ }),
 /* 7 */
@@ -14374,7 +14374,7 @@ var _scrollbarWidth = __webpack_require__(32);
 
 var _scrollbarWidth2 = _interopRequireDefault(_scrollbarWidth);
 
-var _dom = __webpack_require__(5);
+var _dom = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14658,7 +14658,7 @@ var _vue = __webpack_require__(3);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _dom = __webpack_require__(5);
+var _dom = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14909,7 +14909,7 @@ module.exports = __webpack_require__(34);
 /***/ 2:
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(5);
+module.exports = __webpack_require__(6);
 
 /***/ }),
 
@@ -16213,7 +16213,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(195)
 }
-var normalizeComponent = __webpack_require__(6)
+var normalizeComponent = __webpack_require__(5)
 /* script */
 var __vue_script__ = __webpack_require__(197)
 /* template */
@@ -17094,7 +17094,7 @@ module.exports = __webpack_require__(51);
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(5);
+module.exports = __webpack_require__(6);
 
 /***/ }),
 /* 4 */
@@ -49340,7 +49340,7 @@ var _vue = __webpack_require__(3);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _dom = __webpack_require__(5);
+var _dom = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52678,7 +52678,7 @@ var index = (function () {
 
 exports.__esModule = true;
 
-var _dom = __webpack_require__(5);
+var _dom = __webpack_require__(6);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -52848,7 +52848,7 @@ module.exports = __webpack_require__(33);
 /***/ 2:
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(5);
+module.exports = __webpack_require__(6);
 
 /***/ }),
 
@@ -55436,7 +55436,7 @@ module.exports = __webpack_require__(35);
 /***/ 2:
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(5);
+module.exports = __webpack_require__(6);
 
 /***/ }),
 
@@ -60082,7 +60082,7 @@ module.exports = __webpack_require__(35);
 /***/ 2:
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(5);
+module.exports = __webpack_require__(6);
 
 /***/ }),
 
@@ -63870,7 +63870,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(190)
 }
-var normalizeComponent = __webpack_require__(6)
+var normalizeComponent = __webpack_require__(5)
 /* script */
 var __vue_script__ = __webpack_require__(193)
 /* template */
@@ -64376,12 +64376,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			//					console.log(this.current_nid);
 			this.love = this.love + 1;
+			this.love_btn = true;
 			this.$http.get('/novel_add_love?id=' + this.current_nid).then(function (response) {
 				//						console.log(response)
 				return response.data;
 			}).then(function (result) {
 				if (result == 1) {
-					_this2.love_btn = true;
 					_this2.love_word = '谢谢支持 ^_^ ';
 				}
 			});
@@ -64399,7 +64399,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(199)
 }
-var normalizeComponent = __webpack_require__(6)
+var normalizeComponent = __webpack_require__(5)
 /* script */
 var __vue_script__ = __webpack_require__(201)
 /* template */
@@ -64654,7 +64654,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(6)
+var normalizeComponent = __webpack_require__(5)
 /* script */
 var __vue_script__ = __webpack_require__(205)
 /* template */
@@ -64760,7 +64760,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(245)
 }
-var normalizeComponent = __webpack_require__(6)
+var normalizeComponent = __webpack_require__(5)
 /* script */
 var __vue_script__ = __webpack_require__(247)
 /* template */
@@ -64949,7 +64949,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(241)
 }
-var normalizeComponent = __webpack_require__(6)
+var normalizeComponent = __webpack_require__(5)
 /* script */
 var __vue_script__ = __webpack_require__(243)
 /* template */
@@ -65080,39 +65080,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    //        props:['isCollapse'];
+    props: ['menu'],
     data: function data() {
         return {
             isCollapse: isCollapse,
@@ -65161,7 +65131,7 @@ var render = function() {
                 {
                   staticClass: "el-menu-vertical-demo",
                   attrs: {
-                    "default-active": "1-1",
+                    "default-active": "1-3",
                     "background-color": "#545c64",
                     "text-color": "#fff",
                     "active-text-color": "#ffd04b",
@@ -65173,15 +65143,15 @@ var render = function() {
                     select: _vm.handleSelect
                   }
                 },
-                [
-                  _c(
+                _vm._l(_vm.menu, function(a, ak) {
+                  return _c(
                     "el-submenu",
-                    { attrs: { index: "1" } },
+                    { key: ak, attrs: { index: a.m_routers } },
                     [
                       _c("template", { slot: "title" }, [
                         _c("i", { staticClass: "el-icon-location" }),
                         _vm._v(" "),
-                        _c("span", [_vm._v("我的博客")])
+                        _c("span", [_vm._v(_vm._s(a.m_name))])
                       ]),
                       _vm._v(" "),
                       _c(
@@ -65189,86 +65159,31 @@ var render = function() {
                         [
                           _vm.ShowTitle
                             ? _c("template", { slot: "title" }, [
-                                _vm._v("我的博客")
+                                _vm._v(_vm._s(a.m_name))
                               ])
                             : _vm._e(),
                           _vm._v(" "),
-                          _c(
-                            "router-link",
-                            { attrs: { to: "/markDownVue" } },
-                            [
-                              _c("el-menu-item", { attrs: { index: "1-2" } }, [
-                                _vm._v("发表博客")
-                              ])
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            { attrs: { to: "/myBlog" } },
-                            [
-                              _c("el-menu-item", { attrs: { index: "1-3" } }, [
-                                _vm._v("博客列表")
-                              ])
-                            ],
-                            1
-                          )
-                        ],
-                        2
-                      )
-                    ],
-                    2
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "el-submenu",
-                    { attrs: { index: "2" } },
-                    [
-                      _c("template", { slot: "title" }, [
-                        _c("i", { staticClass: "el-icon-location" }),
-                        _vm._v(" "),
-                        _c("span", [_vm._v("系统设置")])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "el-menu-item-group",
-                        [
-                          _vm.ShowTitle
-                            ? _c("template", { slot: "title" }, [
-                                _vm._v("系统设置")
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            { attrs: { to: "/" } },
-                            [
-                              _c("el-menu-item", { attrs: { index: "2-1" } }, [
-                                _vm._v("常量设置")
-                              ])
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            { attrs: { to: "/tagController" } },
-                            [
-                              _c("el-menu-item", { attrs: { index: "2-2" } }, [
-                                _vm._v("标签设置")
-                              ])
-                            ],
-                            1
-                          )
+                          _vm._l(a.m_pid, function(b, bk) {
+                            return _c(
+                              "router-link",
+                              { key: bk, attrs: { to: b.m_route } },
+                              [
+                                _c(
+                                  "el-menu-item",
+                                  { attrs: { index: b.m_routers } },
+                                  [_vm._v(_vm._s(b.m_name))]
+                                )
+                              ],
+                              1
+                            )
+                          })
                         ],
                         2
                       )
                     ],
                     2
                   )
-                ],
-                1
+                })
               )
             ],
             1
@@ -65556,6 +65471,9 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_MarkDownVue_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_MarkDownVue_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_TagController_vue__ = __webpack_require__(269);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_TagController_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_TagController_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Menu_vue__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Menu_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_Menu_vue__);
+
 
 
 
@@ -65580,6 +65498,9 @@ var routes = [{
 }, {
     path: '/tagController',
     component: __WEBPACK_IMPORTED_MODULE_4__components_TagController_vue___default.a
+}, {
+    path: '/menu',
+    component: __WEBPACK_IMPORTED_MODULE_5__components_Menu_vue___default.a
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = (routes);
@@ -65594,7 +65515,7 @@ function injectStyle (ssrContext) {
   __webpack_require__(251)
   __webpack_require__(253)
 }
-var normalizeComponent = __webpack_require__(6)
+var normalizeComponent = __webpack_require__(5)
 /* script */
 var __vue_script__ = __webpack_require__(255)
 /* template */
@@ -65847,22 +65768,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			checkList: [],
 			checkListStr: '',
 			items: [],
-			options: [{
-				value: '1',
-				label: '程序相关',
-				children: [{
-					value: '2',
-					label: 'PHP'
-				}]
-			}, {
-				value: '3',
-				label: '浮生杂谈',
-				children: [{
-					value: '4',
-					label: '2018年6月'
-				}]
-			}],
-			selectedOptions3: ['3', '4'],
+			options: [],
+			selectedOptions3: [],
 			textarea2: '',
 			htmlcode: '',
 			markdowntextarea: '',
@@ -65879,6 +65786,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}).then(function (result) {
 			console.log('标签结果：', result);
 			_this.items = _this.items.concat(result);
+		});
+		//分类
+		this.$http.get('/markDownClassify').then(function (response) {
+			return response.data;
+		}).then(function (result) {
+			console.log(_this.options);
+			console.log(result);
+			_this.options = result;
 		});
 		//文章内容
 		this.current_nid = this.$route.query.id;
@@ -65901,9 +65816,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			_this.htmlcode = result.novel.n_content;
 
 			var one = result.novel.n_one;
-			var one = one.toString();
+			//			var one = one.toString();
 			var two = result.novel.n_two;
-			var two = two.toString();
+			//			var two = two.toString();
 			_this.selectedOptions3 = [one, two];
 			console.log(_this.selectedOptions3);
 			_this.textarea2 = result.novel.n_overview;
@@ -66219,7 +66134,7 @@ function injectStyle (ssrContext) {
   __webpack_require__(263)
   __webpack_require__(265)
 }
-var normalizeComponent = __webpack_require__(6)
+var normalizeComponent = __webpack_require__(5)
 /* script */
 var __vue_script__ = __webpack_require__(267)
 /* template */
@@ -66456,14 +66371,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-// Local Registration
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	name: 'editor',
 	components: {
 		mavonEditor: __WEBPACK_IMPORTED_MODULE_0_mavon_editor__["mavonEditor"]
-		// or 'mavon-editor': mavonEditor
 	},
 	data: function data() {
 		return {
@@ -66472,25 +66385,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			checkList: [],
 			checkListStr: '',
 			items: [],
-			options: [{
-				value: '1',
-				label: '程序相关',
-				children: [{
-					value: '2',
-					label: 'PHP'
-				}]
-			}, {
-				value: '3',
-				label: '浮生杂谈',
-				children: [{
-					value: '4',
-					label: '2018年6月'
-				}]
-			}],
-			selectedOptions3: ['3', '4'],
+			options: [],
 			textarea2: '',
 			htmlcode: '',
-			markdowntextarea: ''
+			markdowntextarea: '',
+			selectedOptions3: []
 		};
 	},
 	mounted: function mounted() {
@@ -66501,6 +66400,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}).then(function (result) {
 			console.log('标签结果：', result);
 			_this.items = _this.items.concat(result);
+		});
+		this.$http.get('/markDownClassify').then(function (response) {
+			return response.data;
+		}).then(function (result) {
+			console.log(_this.options);
+			console.log(result);
+			_this.options = result;
 		});
 	},
 
@@ -66772,7 +66678,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(270)
 }
-var normalizeComponent = __webpack_require__(6)
+var normalizeComponent = __webpack_require__(5)
 /* script */
 var __vue_script__ = __webpack_require__(272)
 /* template */
@@ -67077,6 +66983,364 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-1df6a32f", module.exports)
+  }
+}
+
+/***/ }),
+/* 274 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(275)
+}
+var normalizeComponent = __webpack_require__(5)
+/* script */
+var __vue_script__ = __webpack_require__(277)
+/* template */
+var __vue_template__ = __webpack_require__(278)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Menu.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-750c22d4", Component.options)
+  } else {
+    hotAPI.reload("data-v-750c22d4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 275 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(276);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(7)("60744fac", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-750c22d4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Menu.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-750c22d4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Menu.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 276 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.custom-tree-node {\n\t-webkit-box-flex: 1;\n\t    -ms-flex: 1;\n\t        flex: 1;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t    -ms-flex-align: center;\n\t        align-items: center;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n\tfont-size: 14px;\n\tpadding-right: 8px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 277 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var id = 1000;
+//局部注册
+//    import tag from './Tag.vue';
+/* harmony default export */ __webpack_exports__["default"] = ({
+	//        components: {
+	//            'tag-el':tag
+	//        },
+	data: function data() {
+		var data = [{
+			id: 1,
+			label: '一级 1',
+			children: [{
+				id: 4,
+				label: '二级 1-1',
+				children: [{
+					id: 9,
+					label: '三级 1-1-1'
+				}, {
+					id: 10,
+					label: '三级 1-1-2'
+				}]
+			}]
+		}, {
+			id: 2,
+			label: '一级 2',
+			children: [{
+				id: 5,
+				label: '二级 2-1'
+			}, {
+				id: 6,
+				label: '二级 2-2'
+			}]
+		}, {
+			id: 3,
+			label: '一级 3',
+			children: [{
+				id: 7,
+				label: '二级 3-1'
+			}, {
+				id: 8,
+				label: '二级 3-2'
+			}]
+		}];
+		return {
+			data4: JSON.parse(JSON.stringify(data)),
+			data5: JSON.parse(JSON.stringify(data))
+		};
+	},
+	mounted: function mounted() {},
+
+	methods: {
+		append: function append(data) {
+			var newChild = { id: id++, label: 'testtest', children: [] };
+			if (!data.children) {
+				this.$set(data, 'children', []);
+			}
+			data.children.push(newChild);
+		},
+		remove: function remove(node, data) {
+			var parent = node.parent;
+			var children = parent.data.children || parent.data;
+			var index = children.findIndex(function (d) {
+				return d.id === data.id;
+			});
+			children.splice(index, 1);
+		},
+		renderContent: function renderContent(h, _ref) {
+			var _this = this;
+
+			var node = _ref.node,
+			    data = _ref.data,
+			    store = _ref.store;
+
+			return h(
+				'span',
+				{ 'class': 'custom-tree-node' },
+				[h('span', [node.label]), h('span', [h(
+					'el-button',
+					{
+						attrs: { size: 'mini', type: 'text' },
+						on: {
+							'click': function click() {
+								return _this.append(data);
+							}
+						}
+					},
+					['Append']
+				), h(
+					'el-button',
+					{
+						attrs: { size: 'mini', type: 'text' },
+						on: {
+							'click': function click() {
+								return _this.remove(node, data);
+							}
+						}
+					},
+					['Delete']
+				)])]
+			);
+		}
+	}
+});
+
+/***/ }),
+/* 278 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "custom-tree-container" }, [
+    _c(
+      "div",
+      { staticClass: "block" },
+      [
+        _c("p", [_vm._v("使用 render-content")]),
+        _vm._v(" "),
+        _c("el-tree", {
+          attrs: {
+            data: _vm.data4,
+            "show-checkbox": "",
+            "node-key": "id",
+            "default-expand-all": "",
+            "expand-on-click-node": false,
+            "render-content": _vm.renderContent
+          }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "block" },
+      [
+        _c("p", [_vm._v("使用 scoped slot")]),
+        _vm._v(" "),
+        _c("el-tree", {
+          attrs: {
+            data: _vm.data5,
+            "show-checkbox": "",
+            "node-key": "id",
+            "default-expand-all": "",
+            "expand-on-click-node": false
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "default",
+              fn: function(ref) {
+                var node = ref.node
+                var data = ref.data
+                return _c("span", { staticClass: "custom-tree-node" }, [
+                  _c("span", [_vm._v(_vm._s(node.label))]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    [
+                      _c(
+                        "el-button",
+                        {
+                          attrs: { type: "text", size: "mini" },
+                          on: {
+                            click: function() {
+                              return _vm.append(data)
+                            }
+                          }
+                        },
+                        [_vm._v("\n\t\t\t\t\t\tAppend\n\t\t\t\t\t")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-button",
+                        {
+                          attrs: { type: "text", size: "mini" },
+                          on: {
+                            click: function() {
+                              return _vm.remove(node, data)
+                            }
+                          }
+                        },
+                        [_vm._v("\n\t\t\t\t\t\tDelete\n\t\t\t\t\t")]
+                      )
+                    ],
+                    1
+                  )
+                ])
+              }
+            }
+          ])
+        })
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-750c22d4", module.exports)
   }
 }
 
