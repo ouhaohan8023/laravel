@@ -33,7 +33,7 @@
 	<link rel="manifest" href="/ico/site.webmanifest">
 
 	{{--md样式--}}
-	<link rel="stylesheet" href="/css/markdown.css?v=1.0">
+	<link rel="stylesheet" href="/css/markdown.css?v=1.1">
 
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
