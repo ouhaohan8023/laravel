@@ -156,13 +156,13 @@
 		</el-header>
 		<el-main class="contents">
 			<el-row >
-				<el-col :span="4">
+				<el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="3">
 					<el-aside width="">
 						{{--{{$menu->menu1}}--}}
 						<side v-bind:menu1="{{$menu['menu1']}}" v-bind:menu2="{{$menu['menu2']}}"></side>
 					</el-aside>
 				</el-col>
-				<el-col :span="20">
+				<el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="21">
 					<el-main>
 						{{--<breadcrumb></breadcrumb>--}}
 						{{--<novel></novel>--}}

@@ -555,7 +555,8 @@ pre code{
 	font-size: 14px;
 }
 .editormd-preview-container img{
-	max-width: 800px;
+	/*max-width: 800px;*/
+	width: 100%;
 }
 /*.file-node-icon.fa.fa-folder:before {
   content: "\f114";
