@@ -9,9 +9,12 @@
 			<h2>{{maintitle}}</h2>
 			<h1>{{subtitle}}</h1>
 			<el-row class="time_read">
-				<el-col :span="8">{{novelTime}}</el-col>
-				<el-col :span="6" :offset="10" class="read">作者:{{writer}}&nbsp;&nbsp;阅读量:{{read}}</el-col>
-				<el-col :span="8">{{changeTime}}</el-col>
+				<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">作者:{{writer}}</el-col>
+				<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="hidden-xs-only read">阅读量:{{read}}</el-col>
+				<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="hidden-sm-and-up">阅读量:{{read}}</el-col>
+				<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">{{novelTime}}</el-col>
+				<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="hidden-xs-only read">{{changeTime}}</el-col>
+				<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="hidden-sm-and-up">{{changeTime}}</el-col>
 			</el-row>
 			<tag-el v-bind:tagsList="tagsList"></tag-el>
 			<div class="content">

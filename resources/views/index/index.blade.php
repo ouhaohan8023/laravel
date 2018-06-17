@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0;">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
 	<!--默认使用极速内核：针对国内浏览器产商-->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 	<meta name="description"  content="Ohh的博客,一个叙述生活的地方" />
@@ -151,15 +151,21 @@
 </div>
 <div id="app">
 	<el-container>
-		<el-header>
+		<el-header onclick="backToTop()">
 			<headbar></headbar>
 		</el-header>
 		<el-main class="contents">
 			<el-row >
-				<el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="3">
+				<el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="3" class="hidden-xs-only">
 					<el-aside width="">
 						{{--{{$menu->menu1}}--}}
-						<side v-bind:menu1="{{$menu['menu1']}}" v-bind:menu2="{{$menu['menu2']}}"></side>
+						<side v-bind:menu1="{{$menu['menu1']}}" v-bind:menu2="{{$menu['menu2']}}" defaultactive='1-4' ></side>
+					</el-aside>
+				</el-col>
+				<el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="3" class="hidden-sm-and-up">
+					<el-aside width="">
+						{{--{{$menu->menu1}}--}}
+						<side v-bind:menu1="{{$menu['menu1']}}" v-bind:menu2="{{$menu['menu2']}}" defaultactive='1' ></side>
 					</el-aside>
 				</el-col>
 				<el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="21">
@@ -172,7 +178,7 @@
 					</el-main>
 				</el-col>
 			</el-row>
-			<img id="backToTop" src="/img/kotori.png" onclick="backToTop()"/>
+			<img class="hidden-xs-only" id="backToTop" src="/img/kotori.png" onclick="backToTop()"/>
 		</el-main>
 		<el-footer>
 			<footers></footers>
@@ -195,13 +201,14 @@
 	var logOutUrl = '{{ route('logout') }}'
 	var RegisterUrl = '{{ route('register') }}'
 	var LoginUrl = '{{ route('login') }}'
-	var isCollapse = false;
-	var ShowTitle = false;
+//	var isCollapse = false;
+//	var ShowTitle = false;
 	//	console.log(document.body.clientWidth)
 	ScreenWidth = document.body.clientWidth;
 	if(ScreenWidth <= 764){
 //		isCollapse = true;
-		ShowTitle = true;
+//		document.getElementById('backToTop').style.display = "none";
+//		ShowTitle = true;
 	}
 //	console.log(document.documentElement.clientHeight)
 </script>

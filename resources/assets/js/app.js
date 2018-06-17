@@ -13,7 +13,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 import VueRouter from 'vue-router';
 //import VueResource from 'vue-resource';
 import '../font/iconfont.js';
-import axios from 'axios'
+import axios from 'axios';
+import 'element-ui/lib/theme-chalk/display.css';
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
