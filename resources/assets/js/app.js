@@ -5,7 +5,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-// require('./bootstrap');
+ //require('./bootstrap');
 
 window.Vue = require('vue');
 import ElementUI from 'element-ui';
@@ -15,8 +15,7 @@ import VueRouter from 'vue-router';
 import '../font/iconfont.js';
 import axios from 'axios';
 import 'element-ui/lib/theme-chalk/display.css';
-
-
+// fade/zoom 等
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -34,6 +33,7 @@ Vue.component('novellist', require('./components/NovelList.vue'));
 Vue.component('novellist2', require('./components/NovelList_List.vue'));
 Vue.component('SvgIcon', require('./components/Svg.vue'));
 Vue.component('footers', require('./components/Footer.vue'));
+Vue.component('advertise', require('./components/Advertise.vue'));
 
 
 

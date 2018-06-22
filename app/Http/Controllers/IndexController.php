@@ -24,8 +24,11 @@ class IndexController extends Controller
      */
     public function index()
     {
+//        左菜单
         $data['menu1'] = DB::table('la_classify')->where('c_pid','=',1)->get();
         $data['menu2'] = DB::table('la_classify')->where('c_pid','=',2)->get();
+//        右推荐
+        $data['recommend'] = DB::table('la_novels')->orderBy('n_read','DESC')->limit(5)->get();
         return view('index/index',['menu'=>$data]);
     }
 
