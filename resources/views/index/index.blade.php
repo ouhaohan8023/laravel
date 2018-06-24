@@ -224,8 +224,7 @@
 	var logOutUrl = '{{ route('logout') }}'
 	var RegisterUrl = '{{ route('register') }}'
 	var LoginUrl = '{{ route('login') }}'
-//	var isCollapse = false;
-//	var ShowTitle = false;
+	var novel_list_id = 1;
 	//	console.log(document.body.clientWidth)
 	ScreenWidth = document.body.clientWidth;
 	if(ScreenWidth <= 764){
@@ -242,11 +241,15 @@
 		id.style.display = "none";
 	});
 	var show = 0;
+
 	window.onscroll = function() {
 		//为了保证兼容性，这里取两个值，哪个有值取哪一个
 		//scrollTop就是触发滚轮事件时滚轮的高度
 		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 //		console.log("滚动距离" + scrollTop);
+		var total_area = document.getElementById('app').clientHeight;
+		var able_area = document.documentElement.clientHeight
+//		console.log('fff:'+total_area)
 		if(scrollTop>200 && show == 0){
 			show = 1;
 //			console.log('是时候了！')
@@ -623,7 +626,7 @@
 						window.oRequestAnimationFrame ||
 						window.msRequestAnimationFrame ||
 						function(callback) {
-							window.setTimeout(callback, 1000 / 60);
+							window.setTimeout(callback, 10);
 						}
 				);
 			})();

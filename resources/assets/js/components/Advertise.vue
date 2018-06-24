@@ -7,10 +7,14 @@
     <div class="right-tags">
       <div class="title">文章推荐</div>
       <el-row class="content">
-        <el-card class="box-card recommend" v-for="o in recommend" :key="o.n_id">
-            {{o.n_mainname }}
-          <p><i class="el-icon-view">{{o.n_read}}</i><i class="el-icon-star-off right">{{o.n_love}}</i></p>
-        </el-card>
+        <div v-for="o in recommend" :key="o.n_id" class="text item">
+          <a @click="ToNovel(o.n_id)" class="a-box-card">
+            <el-card class="box-card recommend" >
+                {{o.n_mainname }}
+              <p><i class="el-icon-view">{{o.n_read}}</i><i class="el-icon-star-off right">{{o.n_love}}</i></p>
+            </el-card>
+          </a>
+        </div>
       </el-row>
     </div>
   </div>
@@ -44,6 +48,17 @@
   .el-card .right{
     margin-left: 20px;
   }
+  .Advertise .el-card {
+    color: inherit;
+  }
+  .Advertise a {
+    color: #303133;
+  }
+  .Advertise a:hover {
+    color: #00adb2;
+    font-weight: bolder;
+  }
+
 
 
 
@@ -60,7 +75,11 @@
 
         },
         methods: {
-
+          ToNovel: function (data) {
+//            console.log(data)
+            // 命名的路由
+            this.$router.push('/novel?id='+data)
+          },
         }
     }
 </script>

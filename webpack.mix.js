@@ -16,5 +16,5 @@ mix.js('resources/assets/js/admin.js', 'public/js')
 
 	.sass('resources/assets/sass/app.scss', 'public/css');
 
-mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js');
+mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js')
 

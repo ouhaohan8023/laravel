@@ -12,7 +12,7 @@ class NovelController extends Controller
     //列表展示
     public function index(){
 //        $find['n_two'] = isset($_GET['id'])?$_GET['id']:null;
-        $list = DB::table('la_novels')->leftJoin('la_icon_link','la_novels.n_type','=','la_icon_link.ic_id')->orderByRaw('n_id DESC')->get();
+        $list = DB::table('la_novels')->leftJoin('la_icon_link','la_novels.n_type','=','la_icon_link.ic_id')->orderByRaw('n_id DESC')->paginate(5);
         $data = ['novel' => $list];
         return $data;
     }

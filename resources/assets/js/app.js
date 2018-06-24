@@ -36,7 +36,6 @@ Vue.component('footers', require('./components/Footer.vue'));
 Vue.component('advertise', require('./components/Advertise.vue'));
 
 
-
 import routes from './routes'
 const router = new VueRouter({
     routes

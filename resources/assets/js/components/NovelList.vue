@@ -12,13 +12,13 @@
               <!--<el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
               <i class="el-icon-star-off ic_icon">{{o.n_love}}</i>
               <i class="el-icon-view ic_icon icon_right">{{o.n_read}}</i>
-              <!--<div style="float: right; padding: 3px 0">点赞数:{{o.n_love}}</div>-->
-              <!--<div style="float: right; padding: 3px 0">阅读量:{{o.n_read}}&nbsp;&nbsp;</div>-->
             </div>
             {{o.n_overview}}
           </el-card>
         </a>
       </div>
+      <el-card class="el-card-loading" v-html="last_card_text">
+      </el-card>
     </section>
   </div>
   <!--</transition>-->
@@ -53,8 +53,23 @@
   .NovelList .icon_right {
     margin-right: 10px;
   }
+  .el-card-loading {
+    text-align: center;
+  }
+  .NovelList a {
+    color: #303133;
+  }
+  .NovelList a:hover {
+    color: #000000;
+    font-size: 16px;
+    font-weight: bolder;
+  }
+  .NovelList .el-card {
+    color: inherit;
+  }
 </style>
 <script>
+
     export default {
         data() {
             return {
@@ -62,30 +77,62 @@
               title: '父组件向子组件传递数据',
               content: '在 Vue 中，可以使用 props 向子组件传递数据。',
               dialogVisible: false,
-              show: true
+              show: true,
+              novel_list_page:1,
+              allow_to_load:1,
+              last_card_text: "客官，请稍等，拼命加载中！<i class='el-icon-loading'></i>"
             }
         },
         mounted(){
-          this.$http.get('/novel_list?id=2').then((response) => {
-  //							console.log(response)
-            return response.data
-          }).then((result) => {
-//            this.loading = false;
-            this.list = this.list.concat(result.novel);
-          console.log('返回数据结果：', result)
-        });
+          this.getNovelList();
+          var _this = this;
+          window.onscroll = function() {
+            //为了保证兼容性，这里取两个值，哪个有值取哪一个
+            //scrollTop就是触发滚轮事件时滚轮的高度
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var total_area = document.getElementById('app').clientHeight;
+            var able_area = document.documentElement.clientHeight
+            if(able_area + scrollTop >= total_area){
+//              console.log('到了最底部999');
+              if(_this.allow_to_load){
+                _this.allow_to_load = 0;
+                _this.getNovelList();
+              }
+            }
+          }
         },
         methods: {
-            LinkTo: function (event) {
-                alert("Hello")
-            },
-            ToNovel: function (data) {
-                console.log(data)
-                // 命名的路由
-                this.$router.push('/novel?id='+data)
-            },
+          LinkTo: function (event) {
+              alert("Hello")
+          },
+          ToNovel: function (data) {
+              console.log(data)
+              // 命名的路由
+              this.$router.push('/novel?id='+data)
+          },
+          getNovelList() {
+            var page = this.novel_list_page;
+            this.$http.get('/novel_list?id=2&page='+page).then((response) => {
+              return response.data
+            }).then((result) => {
+              var addData = result.novel.data;
+              if(addData.length == 0){
+//                console.log('孔');
+                this.last_card_text = '客官，我是有底线的~~~    end'
+              }else if(addData.length < 5){
+                this.list = this.list.concat(addData);
+                this.last_card_text = '客官，我是有底线的~~~    end'
+              }
+              else{
+//                console.log('返回数据结果：', result)
+                this.list = this.list.concat(addData);
+                this.novel_list_page++;
+                this.allow_to_load = 1;
+//                console.log(this.novel_list_page)
+              }
+          });
+          }
         }
-
-
     }
+
 </script>
