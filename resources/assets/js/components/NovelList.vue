@@ -27,19 +27,6 @@
   .item{
     margin-bottom: 15px;
   }
-  /*!* 可以设置不同的进入和离开动画 *!*/
-  /*!* 设置持续时间和动画函数 *!*/
-  /*.slide-fade-enter-active {*/
-    /*transition: all .3s ease;*/
-  /*}*/
-  /*.slide-fade-leave-active {*/
-    /*transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);*/
-  /*}*/
-  /*.slide-fade-enter, .slide-fade-leave-to*/
-    /*!* .slide-fade-leave-active for below version 2.1.8 *! {*/
-    /*transform: translateX(10px);*/
-    /*opacity: 0;*/
-  /*}*/
   .NovelList .svgicon {
     width: 30px;height: 30px;
     vertical-align: -0.15em;
@@ -91,7 +78,18 @@
             //scrollTop就是触发滚轮事件时滚轮的高度
             var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
             var total_area = document.getElementById('app').clientHeight;
-            var able_area = document.documentElement.clientHeight
+            var able_area = document.documentElement.clientHeight;
+            if(scrollTop>200 && show == 0){
+              show = 1;
+//			console.log('是时候了！')
+              document.getElementById('backToTop').style.left="-30px"
+              document.getElementById('backToTop').style.bottom="-30px"
+            }else if(scrollTop < 200 && show == 1){
+              show = 0;
+              document.getElementById('backToTop').style.left="-150px"
+              document.getElementById('backToTop').style.bottom="-150px"
+//			console.log('撤')
+            }
             if(able_area + scrollTop >= total_area){
 //              console.log('到了最底部999');
               if(_this.allow_to_load){
