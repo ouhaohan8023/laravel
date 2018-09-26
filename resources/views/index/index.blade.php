@@ -272,6 +272,12 @@
 <div style="display: none">
 	<script src="https://s13.cnzz.com/z_stat.php?id=1273865734&web_id=1273865734" language="JavaScript"></script>
 </div>
-
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-7301039612492479",
+        enable_page_level_ads: true
+    });
+</script>
 </body>
 </html>
